@@ -29,7 +29,7 @@ This project includes a server-side contact API route at `src/app/api/contact/ro
 ```bash
 RESEND_API_KEY=your_resend_api_key
 CONTACT_FROM_EMAIL="Portfolio Contact <onboarding@resend.dev>"
-CONTACT_TO_EMAIL="subhash09468@gmail.com"
+CONTACT_TO_EMAIL=your_email@example.com
 CONTACT_RATE_LIMIT_WINDOW_MS=600000
 CONTACT_RATE_LIMIT_MAX=5
 CONTACT_ERROR_WEBHOOK=
