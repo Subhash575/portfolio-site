@@ -156,7 +156,7 @@ export default function ContactSection() {
           </div>
 
           <div>
-            <h3 className="text-2xl font-bold tracking-tight text-primary text-primary">
+            <h3 className="text-2xl font-bold tracking-tight text-primary">
               Let&apos;s work together
             </h3>
             <p className="mt-3 text-[0.95rem] leading-[1.8] text-muted">
@@ -171,7 +171,7 @@ export default function ContactSection() {
             {items.map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-4 rounded-xl border border-subtle bg-surface/80 px-4 py-3.5 dark:bg-surface-elevated/[0.03]"
+                className="flex items-center gap-4 rounded-xl border border-subtle bg-surface/80 px-4 py-3.5 dark:bg-surface-elevated/3"
               >
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
                   {item.icon}
@@ -211,7 +211,7 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   aria-label={`${siteConfig.name} on ${link.label}`}
                   title={link.label}
-                  className="flex items-center gap-2 rounded-xl border border-subtle bg-surface-elevated px-3.5 py-2.5 text-sm font-medium text-secondary shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-subtle hover:text-primary hover:shadow-md dark:bg-surface-elevated/[0.04] dark:hover:border-white/[0.15] dark:hover:text-zinc-200"
+                  className="flex items-center gap-2 rounded-xl border border-subtle bg-surface-elevated px-3.5 py-2.5 text-sm font-medium text-secondary shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-subtle hover:text-primary hover:shadow-md dark:bg-surface-elevated/4 dark:hover:border-white/15 dark:hover:text-zinc-200"
                 >
                   <ContactSocialIcon label={link.label} />
                   <span>{link.label}</span>
@@ -222,12 +222,12 @@ export default function ContactSection() {
         </div>
 
         {/* ── Right: Contact form ── */}
-        <div className="rounded-2xl border border-subtle/80 bg-surface-elevated p-6 shadow-sm bg-surface-elevated/60 md:p-8">
+        <div className="rounded-2xl border border-subtle/80 bg-surface-elevated p-6 shadow-sm md:p-8">
           {/* Form card header */}
           <div className="mb-6 flex items-center gap-3">
             <div className="h-8 w-1 rounded-full bg-accent" />
             <div>
-              <h4 className="text-base font-semibold text-primary text-primary">
+              <h4 className="text-base font-semibold text-primary">
                 Send a message
               </h4>
               <p className="text-xs text-muted dark:text-muted">
