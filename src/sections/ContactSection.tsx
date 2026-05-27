@@ -126,7 +126,7 @@ export default function ContactSection() {
   return (
     <motion.section
       id="contact"
-      className="py-6 md:py-6"
+      className="py-6 md:py-12"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
@@ -141,7 +141,7 @@ export default function ContactSection() {
         subtitle="Let's build something together"
       />
 
-      <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
+      <div className="mt-1.5 grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
         {/* ── Left: Info panel ── */}
         <div className="flex flex-col gap-8">
           {/* Availability badge */}
