@@ -50,7 +50,7 @@ export default function Button({
     return (
       <a href={href} className={classes} {...rest}>
         {children}
-        {icon && { icon }}
+        {icon}
       </a>
     );
   }
@@ -59,7 +59,7 @@ export default function Button({
   return (
     <button className={classes} {...buttonProps}>
       {children}
-      {icon && { icon }}
+      {icon}
     </button>
   );
 }
