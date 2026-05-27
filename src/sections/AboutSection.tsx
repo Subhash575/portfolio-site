@@ -1,8 +1,22 @@
 "use client";
 
-import { siteConfig, skills, stats } from "@/lib/data";
+import { motion } from "framer-motion";
+import { siteConfig, stats } from "@/lib/data";
+import { skillGroups } from "@/data/skills";
 import SectionHeading from "@/components/SectionHeading";
 import StatCard from "@/components/StatCard";
+import { FaReact, FaNodeJs, FaGitAlt } from "react-icons/fa";
+import {
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiExpress,
+  SiMongodb,
+  SiPostgresql,
+  SiPrisma,
+  SiFramer,
+} from "react-icons/si";
+import { TbApi } from "react-icons/tb";
 
 const categoryTitle: Record<string, string> = {
   frontend: "Frontend",
@@ -11,92 +25,122 @@ const categoryTitle: Record<string, string> = {
   tools: "Tools",
 };
 
-const proficiency: Record<string, number> = {
-  "React.js": 3,
-  "Next.js": 3,
-  TypeScript: 3,
-  "Tailwind CSS": 3,
-  "Node.js": 3,
-  "Express.js": 2,
-  "REST APIs": 3,
-  MongoDB: 3,
-  PostgreSQL: 2,
-  "Prisma ORM": 2,
-  Git: 3,
-  "Framer Motion": 2,
+const categoryAccent: Record<string, string> = {
+  frontend:
+    "bg-violet-500/10 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400",
+  backend: "bg-sky-500/10 text-sky-600 dark:bg-sky-500/15 dark:text-sky-400",
+  database:
+    "bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400",
+  tools:
+    "bg-amber-500/10 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400",
+};
+
+const skillIcons: Record<string, React.ReactNode> = {
+  "React.js": <FaReact className="text-[#61DAFB]" />,
+  "Next.js": <SiNextdotjs className="text-primary" />,
+  TypeScript: <SiTypescript className="text-[#3178C6]" />,
+  "Tailwind CSS": <SiTailwindcss className="text-[#06B6D4]" />,
+  "Node.js": <FaNodeJs className="text-[#339933]" />,
+  "Express.js": <SiExpress className="text-primary" />,
+  "REST APIs": <TbApi className="text-muted" />,
+  MongoDB: <SiMongodb className="text-[#47A248]" />,
+  PostgreSQL: <SiPostgresql className="text-[#4169E1]" />,
+  "Prisma ORM": <SiPrisma className="text-[#2D3748]" />,
+  Git: <FaGitAlt className="text-[#F05032]" />,
+  "Framer Motion": <SiFramer className="text-primary" />,
 };
 
 export default function AboutSection() {
-  const groupedSkills = {
-    frontend: skills.filter((skill) => skill.category === "frontend"),
-    backend: skills.filter((skill) => skill.category === "backend"),
-    database: skills.filter((skill) => skill.category === "database"),
-    tools: skills.filter((skill) => skill.category === "tools"),
-  };
-
   return (
-    <section
+    <motion.section
       id="about"
-      className="rounded-3xl bg-surface-container-low/50 px-4 py-16 md:px-6 md:py-20 dark:bg-surface-container-lowest/40"
+      className="relative px-4 py-16 md:px-6 md:py-12"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      variants={{
+        hidden: { opacity: 0, y: 24 },
+        visible: { opacity: 1, y: 0 },
+      }}
     >
+      {/* Subtle background accent */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-3xl"
+      >
+        <div className="absolute -top-24 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-accent/5 blur-3xl" />
+      </div>
+
       <SectionHeading title="About Me" subtitle="A brief introduction" />
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-2">
-        <div className="flex flex-col gap-6">
-          <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+      <div className="mt-1.5 flex flex-col items-stretch gap-12 lg:flex-row lg:items-stretch lg:gap-16">
+        {/* ── Left column: Bio + Stats ── */}
+        <div className="flex flex-1 flex-col gap-8">
+          <p className="text-[1.05rem] leading-[1.85] tracking-[-0.01em] text-secondary">
             {siteConfig.bio}
           </p>
 
-          <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-2">
+          <div className="flex-1 grid grid-cols-2 grid-rows-2 content-stretch gap-3 sm:gap-4">
             {stats.map((stat, i) => (
               <StatCard key={i} stat={stat} />
             ))}
           </div>
         </div>
 
-        <div>
-          <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900/50 md:p-8">
-            <h3 className="mb-6 text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+        {/* ── Right column: Skills card ── */}
+        <div className="h-full flex-1 rounded-xl border border-subtle bg-surface-elevated/70 p-6 backdrop-blur-sm md:p-8">
+          {/* Card header */}
+          <div className="mb-7 flex items-center gap-3">
+            <div className="h-8 w-1 rounded-full bg-accent" />
+            <h3 className="text-[1.05rem] font-semibold tracking-tight text-primary">
               Technical Skills
             </h3>
+          </div>
 
-            <div className="space-y-5">
-              {Object.entries(groupedSkills).map(([category, list]) => (
-                <div key={category}>
-                  <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
-                    {categoryTitle[category]}
-                  </p>
-                  <div className="flex flex-wrap gap-2.5">
-                    {list.map((skill, index) => (
-                      <div
-                        key={skill.name}
-                        className={`flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-2 text-sm font-medium shadow-sm dark:border-white/10 dark:bg-white/5 ${
-                          index % 3 === 0 ? "text-xs" : ""
-                        } ${index % 3 === 1 ? "text-sm" : ""} ${index % 3 === 2 ? "text-[13px]" : ""}`}
+          <div className="space-y-7">
+            {skillGroups.map(
+              ({ category, skills: list }) =>
+                list.length > 0 && (
+                  <div key={category}>
+                    {/* Category label */}
+                    <div className="mb-3 flex items-center gap-2">
+                      <span
+                        className={`rounded-md px-2 py-0.5 text-[11px] font-semibold uppercase tracking-widest ${categoryAccent[category]}`}
                       >
-                        <span aria-hidden="true">{skill.icon}</span>
-                        <span>{skill.name}</span>
-                        <span className="ml-1 flex items-center gap-1">
-                          {[0, 1, 2].map((dot) => (
+                        {categoryTitle[category]}
+                      </span>
+                      <div className="h-px flex-1 bg-surface-elevated dark:bg-surface-elevated/6" />
+                    </div>
+
+                    {/* Skill grid */}
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+                      {list.map((skill) => {
+                        return (
+                          <div
+                            key={skill.name}
+                            title={skill.name}
+                            className="group flex flex-col items-center justify-center gap-2 rounded-xl border border-subtle bg-surface p-4 text-center transition-all duration-150 hover:-translate-y-1 hover:border-accent hover:shadow-sm dark:bg-surface-elevated/4 dark:hover:border-accent"
+                          >
                             <span
-                              key={dot}
-                              className={`h-1.5 w-1.5 rounded-full ${
-                                dot < (proficiency[skill.name] ?? 2)
-                                  ? "bg-primary"
-                                  : "bg-zinc-300 dark:bg-zinc-600"
-                              }`}
-                            />
-                          ))}
-                        </span>
-                      </div>
-                    ))}
+                              className="text-2xl flex items-center leading-none"
+                              aria-hidden="true"
+                            >
+                              {skillIcons[skill.name] || skill.icon}
+                            </span>
+                            <span className="text-xs font-medium text-secondary group-hover:text-primary leading-tight">
+                              {skill.name}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ),
+            )}
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

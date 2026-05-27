@@ -13,10 +13,10 @@ export interface Project {
   id: string;
   title: string;
   description: string;
-  category: string;
-  problem: string;
-  solution: string;
-  impact: string[];
+  category?: string;
+  problem?: string;
+  solution?: string;
+  impact?: string[];
   techStack: string[];
   imageUrl?: string;
   liveUrl?: string;

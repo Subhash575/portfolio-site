@@ -1,24 +1,54 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Outfit, Fira_Code } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PersonJsonLd } from "@/components/JsonLd";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontBody = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fontHeading = Outfit({
+  variable: "--font-heading",
+  subsets: ["latin"],
+});
+
+const fontMono = Fira_Code({
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Subhash Rana | Full Stack Developer",
+  title: {
+    default: "Subhash Rana | Full Stack Developer",
+    template: "%s | Subhash Rana",
+  },
   description:
-    "Portfolio of Subhash Rana, a full-stack developer specializing in the MERN stack.",
+    "Full Stack Developer building scalable web apps. Open to new opportunities.",
+  metadataBase: new URL("https://subhashrana.dev"),
+  openGraph: {
+    title: "Subhash Rana | Full Stack Developer",
+    description:
+      "Full Stack Developer portfolio — projects, experience, and contact.",
+    url: "https://subhashrana.dev",
+    siteName: "Subhash Rana",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Subhash Rana | Full Stack Developer",
+    description: "Full Stack Developer portfolio.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -29,15 +59,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${fontBody.variable} ${fontHeading.variable} ${fontMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-zinc-50 dark:bg-black text-black dark:text-white">
+      <body className="flex min-h-full flex-col bg-surface text-primary">
         <ThemeProvider>
           <Navbar />
           <div className="grow">{children}</div>
           <Footer />
         </ThemeProvider>
+        <PersonJsonLd />
       </body>
     </html>
   );

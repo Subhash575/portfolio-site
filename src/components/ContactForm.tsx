@@ -27,6 +27,7 @@ export default function ContactForm() {
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [toastMessage, setToastMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   const formStartedAtRef = useRef<number>(Date.now());
 
   useEffect(() => {
@@ -74,8 +75,9 @@ export default function ContactForm() {
       }
 
       setStatus("success");
-      setToastMessage("Message sent successfully. I will get back to you soon.");
+      setToastMessage("");
       setForm({ name: "", email: "", message: "", website: "" });
+      setSubmitted(true);
       formStartedAtRef.current = Date.now();
     } catch (error) {
       setStatus("error");
@@ -88,10 +90,42 @@ export default function ContactForm() {
   };
 
   const inputClasses =
-    "w-full px-5 py-3.5 rounded-xl bg-surface-container-lowest dark:bg-surface-container border border-outline/40 dark:border-outline/40 text-on-surface placeholder:text-on-surface-variant/50 text-sm focus:outline-none focus:ring-2 focus:ring-primary/45 focus:border-primary/70 transition-all duration-300";
+    "w-full px-5 py-3.5 rounded-xl bg-surface/50 border border-subtle text-on-surface placeholder:text-on-surface-variant/50 text-sm focus:outline-none focus:ring-2 focus:ring-accent/45 focus:border-accent/70 transition-all duration-300";
+
+  if (submitted) {
+    return (
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        className="flex flex-col items-center justify-center py-12 gap-4 text-center rounded-2xl border border-subtle/80 bg-surface/30 backdrop-blur-sm shadow-sm"
+      >
+        <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-2xl font-bold">
+          ✓
+        </div>
+        <h3 className="text-lg font-semibold text-primary">Message sent!</h3>
+        <p className="text-sm text-secondary">
+          I'll get back to you within 24 hours.
+        </p>
+        <button 
+          onClick={() => {
+            setSubmitted(false);
+            setStatus("idle");
+          }}
+          className="text-sm text-accent hover:text-accent/80 underline underline-offset-4 mt-2 transition-colors cursor-pointer"
+        >
+          Send another message
+        </button>
+      </motion.div>
+    );
+  }
 
   return (
-    <motion.form variants={fadeUp} onSubmit={handleSubmit} className="relative space-y-5">
+    <motion.form
+      variants={fadeUp}
+      onSubmit={handleSubmit}
+      className="relative space-y-5"
+    >
       <AnimatePresence>
         {toastMessage && status !== "loading" && (
           <motion.div
@@ -190,7 +224,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full gradient-primary text-white py-4 rounded-xl font-semibold text-sm shadow-lg shadow-primary/20 hover:shadow-xl hover:brightness-110 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 disabled:opacity-70 cursor-pointer"
+        className="w-full rounded-lg bg-indigo-500 py-3.5 px-6 text-sm font-medium text-white transition-colors hover:bg-indigo-600 disabled:opacity-70 cursor-pointer"
       >
         {status === "loading" ? (
           <span className="flex items-center justify-center gap-2">
