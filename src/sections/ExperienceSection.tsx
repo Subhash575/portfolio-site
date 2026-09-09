@@ -11,7 +11,7 @@ export default function ExperienceSection() {
 
       <div className="mt-12 relative">
         {/* ── Vertical timeline spine ── */}
-        <div className="absolute left-0 md:left-[11.5rem] top-2 bottom-2 w-px bg-gradient-to-b from-transparent via-zinc-200 to-transparent dark:via-white/10 hidden md:block" />
+        <div className="absolute left-0 md:left-46 top-2 bottom-2 w-px bg-linear-to-b from-transparent via-zinc-200 to-transparent dark:via-white/10 hidden md:block" />
 
         <div className="flex flex-col gap-0">
           {experiences.map((exp, index) => (
@@ -32,7 +32,7 @@ export default function ExperienceSection() {
               className="group relative flex flex-col md:flex-row gap-4 md:gap-0 pb-12 last:pb-0"
             >
               {/* ── Duration column (left) ── */}
-              <div className="hidden md:flex flex-col items-end pr-8 w-[11.5rem] shrink-0 pt-1">
+              <div className="hidden md:flex flex-col items-end pr-8 w-46 shrink-0 pt-1">
                 <span className="text-caption font-semibold tracking-widest uppercase text-muted dark:text-muted text-right leading-relaxed whitespace-nowrap">
                   {exp.duration}
                 </span>
@@ -55,11 +55,11 @@ export default function ExperienceSection() {
                   {exp.duration}
                 </span>
 
-                <div className="rounded-xl border border-subtle/80 bg-surface-elevated p-6 md:p-7 shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:border-subtle/80 group-hover:-translate-y-0.5 bg-surface-elevated/60 dark:group-hover:border-white/[0.12]">
+                <div className="rounded-xl border border-subtle/80 bg-surface-elevated p-6 md:p-7 shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:border-subtle/80 group-hover:-translate-y-0.5 dark:group-hover:border-white/12">
                   {/* Header */}
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
                     <div>
-                      <h3 className="text-h5 font-heading font-bold text-primary text-primary leading-snug">
+                      <h3 className="text-h5 font-heading font-bold text-primary leading-snug">
                         {exp.role}
                       </h3>
                       <div className="flex items-center gap-2 mt-1">
@@ -72,7 +72,7 @@ export default function ExperienceSection() {
                     </div>
 
                     {/* Index badge */}
-                    <span className="self-start sm:self-auto shrink-0 text-caption font-bold tracking-widest uppercase text-muted dark:text-muted bg-surface-elevated dark:bg-surface-elevated/[0.06] px-2.5 py-1 rounded-lg">
+                    <span className="self-start sm:self-auto shrink-0 text-caption font-bold tracking-widest uppercase text-muted dark:text-muted bg-surface-elevated dark:bg-surface-elevated/6 px-2.5 py-1 rounded-lg">
                       0{index + 1}
                     </span>
                   </div>
@@ -101,7 +101,7 @@ export default function ExperienceSection() {
                     {exp.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="rounded-lg bg-surface border border-subtle px-2.5 py-1 text-caption font-semibold text-secondary dark:bg-surface-elevated/[0.04] tracking-wide"
+                        className="rounded-lg bg-surface border border-subtle px-2.5 py-1 text-caption font-semibold text-secondary dark:bg-surface-elevated/4 tracking-wide"
                       >
                         {tech}
                       </span>

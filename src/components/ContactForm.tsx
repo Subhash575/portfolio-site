@@ -105,9 +105,9 @@ export default function ContactForm() {
         </div>
         <h3 className="text-lg font-semibold text-primary">Message sent!</h3>
         <p className="text-sm text-secondary">
-          I'll get back to you within 24 hours.
+          I&apos;ll get back to you within 24 hours.
         </p>
-        <button 
+        <button
           onClick={() => {
             setSubmitted(false);
             setStatus("idle");
