@@ -29,6 +29,14 @@ export const metadata: Metadata = {
   description:
     "Full Stack Developer building scalable web apps. Open to new opportunities.",
   metadataBase: new URL("https://subhashrana.dev"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Subhash Rana | Full Stack Developer",
     description:
