@@ -30,14 +30,6 @@ export const metadata: Metadata = {
   title: { default: title, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
-      { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
-    ],
-    apple: "/apple-touch-icon.png",
-  },
   openGraph: {
     title,
     description: siteConfig.description,
