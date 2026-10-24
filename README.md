@@ -15,14 +15,15 @@ Open http://localhost:3000.
 
 ## Edit content
 
-- Name, bio, email, links, stats: `src/lib/data.ts`
-- Projects: `src/data/projects.ts`
-- Experience: `src/data/experience.ts`
-- Tech marquee: `src/data/skills.ts`
+- Name, email, links, CV path: `src/lib/data.ts`
+- Hero side cards (role fit, Ask Pilot answers, recent commits): `src/data/hero.ts`
+- About stats and skills: `src/data/skills.ts`
+- Projects (Work system map): `src/data/projects.ts`
+- Internship work order and career tape milestones: `src/data/experience.ts`
 - Pilot CLI case study: `src/app/projects/pilot-cli/page.tsx`
 - Photo: `public/images/Subhash_pic.png` · Resume: `public/cv/subhash_cv.pdf`
 
-Colours and animations live in `src/app/globals.css`. All motion turns off for visitors who set "reduce motion".
+The look lives in `src/app/workbench.css` (classes prefixed per section: `k*` hero, `ab3-` about, `wk-` work, `cr-` career, `ct-` contact). Motion turns off for visitors who set "reduce motion".
 
 ## Checks
 

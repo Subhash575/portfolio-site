@@ -1,74 +1,202 @@
-import { FileText } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { siteConfig } from "@/lib/data";
+"use client";
+
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import Reveal from "@/components/Reveal";
-import CopyEmail from "@/components/CopyEmail";
+import { siteConfig } from "@/lib/data";
+import { reducedMotion } from "@/lib/wires";
 
-const links = [
-  { label: "LinkedIn", sub: "Connect", href: siteConfig.linkedin, icon: FaLinkedin, color: "text-[#0a66c2]" },
-  { label: "GitHub", sub: "See the code", href: siteConfig.github, icon: FaGithub, color: "text-ink" },
-  { label: "Resume", sub: "PDF · 1 page", href: siteConfig.resume, icon: FileText, color: "text-orange-text" },
-];
-
-const sticker =
-  "animate-bob absolute hidden rounded-xl bg-white px-3 py-2 text-sm shadow-[0_10px_30px_-10px_rgba(20,20,20,0.3)] md:block";
+const reasons = ["Hiring for SDE-1", "Project / freelance", "Just saying hi"];
+const istTime = () => new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata" }).format(new Date());
 
 export default function ContactSection() {
+  const [name, setName] = useState("");
+  const [msg, setMsg] = useState("");
+  const [re, setRe] = useState(reasons[0]);
+  const [errs, setErrs] = useState<{ name?: string; msg?: string }>({});
+  const [sent, setSent] = useState(false);
+  const [done, setDone] = useState(false);
+  const [copy, setCopy] = useState<string>(siteConfig.email);
+  const [clock, setClock] = useState("--:--");
+
+  useEffect(() => {
+    const tick = () => setClock(istTime());
+    const first = setTimeout(tick, 0);
+    const id = setInterval(tick, 30000);
+    return () => {
+      clearTimeout(first);
+      clearInterval(id);
+    };
+  }, []);
+
+  // No backend: the letter opens the visitor's own email app with everything filled in.
+  const send = (e: React.FormEvent) => {
+    e.preventDefault();
+    const next = {
+      name: name.trim() ? undefined : "Add your name.",
+      msg: msg.trim().length >= 10 ? undefined : "Write at least 10 characters.",
+    };
+    setErrs(next);
+    if (next.name || next.msg) return;
+    const href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`${re} — from ${name.trim()}`)}&body=${encodeURIComponent(`${msg.trim()}\n\n— ${name.trim()}`)}`;
+    setSent(true);
+    setTimeout(
+      () => {
+        setDone(true);
+        window.location.href = href;
+      },
+      reducedMotion() ? 0 : 1100,
+    );
+  };
+
+  const reset = () => {
+    setSent(false);
+    setDone(false);
+    setName("");
+    setMsg("");
+  };
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(siteConfig.email);
+      setCopy("copied ✓");
+    } catch {
+      setCopy(`select it: ${siteConfig.email}`);
+    }
+    setTimeout(() => setCopy(siteConfig.email), 1800);
+  };
+
   return (
-    <section id="contact" className="relative overflow-hidden bg-tint py-20 text-center">
-      <div className={`${sticker} top-14 left-[8%] -rotate-3 [--r:-3deg]`}>
-        <span className="text-green-700">●</span> Open to SDE-1 · 2026
-      </div>
-      <div className={`${sticker} top-28 right-[8%] rotate-3 [--r:3deg] [animation-delay:-2s]`}>
-        <b className="text-orange-text">24h</b> <span className="text-muted">reply time</span>
-      </div>
-
-      <div className="relative mx-auto max-w-2xl px-6">
-        <Reveal>
-          <p className="font-hand text-3xl text-orange-text">let&apos;s talk</p>
-          <svg aria-hidden="true" viewBox="0 0 40 40" className="mx-auto w-8">
-            <path
-              className="draw-path animate-draw"
-              d="M8 4 C 30 8, 30 26, 18 34 M18 34 L 12 26 M18 34 L 26 30"
-              fill="none"
-              stroke="#c2410c"
-              strokeWidth="2"
-              strokeLinecap="round"
+    <section className="ct" id="contact">
+      <Reveal className="ct-head">
+        <span className="label">04 · contact</span>
+        <p className="ab3-hand">let&apos;s talk</p>
+        <h2>Send me a letter</h2>
+        <p className="ct-hint">It opens your own email app. Nothing is stored here.</p>
+      </Reveal>
+      <Reveal className="ct-mat">
+        <div className={`ct-desk${sent ? " sent" : ""}`}>
+          <div className="ct-env" aria-hidden="true">
+            <i className="flap" />
+            <span>to: {siteConfig.email}</span>
+          </div>
+          <form className="ct-letter" onSubmit={send} noValidate>
+            <div className="ct-stamp" aria-hidden="true">
+              <div className="ct-stamp-in">
+                <Image src="/images/Subhash_pic.png" alt="" width={84} height={84} />
+                <b>2026</b>
+                <small>SDE-1</small>
+              </div>
+            </div>
+            <div className="ct-pm" aria-hidden="true">
+              <span>HISAR · IN</span>
+              <b>
+                OPEN
+                <br />
+                TO WORK
+              </b>
+            </div>
+            <p className="ct-to">
+              <span>To</span> {siteConfig.name} &lt;{siteConfig.email}&gt;
+            </p>
+            <label className="ct-row">
+              <span>From</span>
+              <input
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setErrs((x) => ({ ...x, name: undefined }));
+                }}
+                placeholder="Your name"
+                autoComplete="name"
+                aria-invalid={!!errs.name}
+              />
+            </label>
+            <p className="ct-err" role="alert">
+              {errs.name}
+            </p>
+            <div className="ct-row">
+              <span>Re</span>
+              <div className="ct-re" role="radiogroup" aria-label="Reason">
+                {reasons.map((r) => (
+                  <button key={r} type="button" role="radio" aria-checked={re === r} onClick={() => setRe(r)}>
+                    {r}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <textarea
+              rows={5}
+              value={msg}
+              onChange={(e) => {
+                setMsg(e.target.value);
+                setErrs((x) => ({ ...x, msg: undefined }));
+              }}
+              placeholder="Hi Subhash, we're hiring for…"
+              aria-label="Message"
+              aria-invalid={!!errs.msg}
             />
-          </svg>
-          <h2 className="mx-auto mt-2 max-w-md text-3xl leading-tight font-extrabold md:text-4xl">
-            Have a role in mind? <span className="text-orange">Let&apos;s build it.</span>
-          </h2>
-        </Reveal>
+            <p className="ct-err" role="alert">
+              {errs.msg}
+            </p>
+            <div className="ct-foot">
+              <span className="ct-sign">— sent from subhash.live</span>
+              <button className="hirek" type="submit">
+                Send <span>↵</span>
+              </button>
+            </div>
+          </form>
+          <p className="ct-done" aria-live="polite">
+            {done && (
+              <>
+                ✓ Sealed. Opening your email app…
+                <button type="button" onClick={reset}>
+                  write another
+                </button>
+              </>
+            )}
+          </p>
+        </div>
 
-        <Reveal delay={0.1} className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href={`mailto:${siteConfig.email}`}
-            className="relative text-xl font-extrabold break-all after:absolute after:-bottom-1 after:left-0 after:h-[3px] after:w-full after:origin-left after:scale-x-25 after:bg-orange after:transition-transform after:duration-500 hover:after:scale-x-100 md:text-2xl"
-          >
-            {siteConfig.email}
-          </a>
-          <CopyEmail email={siteConfig.email} />
-        </Reveal>
-
-        <Reveal delay={0.2} className="mx-auto mt-10 grid max-w-xl gap-3 text-left sm:grid-cols-3">
-          {links.map(({ label, sub, href, icon: Icon, color }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-3 border-[1.5px] border-ink bg-white p-4 transition duration-200 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[5px_5px_0_#ff6b1a]"
-            >
-              <Icon className={`h-6 w-6 shrink-0 ${color}`} aria-hidden="true" />
-              <span>
-                <b className="block text-sm">{label}</b>
-                <span className="text-xs text-muted">{sub}</span>
-              </span>
+        <aside className="ct-side">
+          <p className="rk">or reach me directly</p>
+          <div className="ct-keys">
+            <button type="button" className="ct-key" onClick={copyEmail}>
+              <b>Copy email</b>
+              <small>{copy}</small>
+              <i>⧉</i>
+            </button>
+            <a className="ct-key" href={siteConfig.linkedin} target="_blank" rel="noreferrer">
+              <b>LinkedIn</b>
+              <small>/in/subhash-rana</small>
+              <i>↗</i>
             </a>
-          ))}
-        </Reveal>
-      </div>
+            <a className="ct-key" href={siteConfig.github} target="_blank" rel="noreferrer">
+              <b>GitHub</b>
+              <small>@Subhash575</small>
+              <i>↗</i>
+            </a>
+            <a className="ct-key or" href={siteConfig.resume} download>
+              <b>Download CV</b>
+              <small>PDF · 1 page</small>
+              <i>⤓</i>
+            </a>
+          </div>
+          <div className="ct-meta">
+            <div>
+              <span className="ct-dot" />
+              <b>Replies within 24h</b>
+              <small>usually same day</small>
+            </div>
+            <div>
+              <b className="ct-clock">{clock}</b>
+              <small>Hisar, India · IST</small>
+            </div>
+          </div>
+        </aside>
+        <span className="matlbl">contact · outbox</span>
+      </Reveal>
+      <p className="ct-thanks">thanks for scrolling ✦</p>
     </section>
   );
 }

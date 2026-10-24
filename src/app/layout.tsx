@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Caveat, Fira_Code } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import "./workbench.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { PersonJsonLd } from "@/components/JsonLd";

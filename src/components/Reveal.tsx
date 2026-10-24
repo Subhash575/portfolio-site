@@ -3,7 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { viewportConfig } from "@/lib/animations";
 
-// Fade-up on scroll. Content is server-rendered either way; motion only adds the entrance.
+// Fade-up on scroll. Always the same element on server and client (swapping it after
+// hydration left the server's opacity:0 in place); reduced motion just makes it instant.
 export default function Reveal({
   children,
   className,
@@ -14,14 +15,12 @@ export default function Reveal({
   delay?: number;
 }) {
   const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportConfig}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
+      transition={reduce ? { duration: 0 } : { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
       className={className}
     >
       {children}
