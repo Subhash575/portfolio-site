@@ -182,7 +182,7 @@ export default function WorkSection() {
               <button key={p.id} className="wk-node" aria-pressed={p.id === cur} style={{ "--c": p.color } as React.CSSProperties} onClick={() => pick(p.id)}>
                 <span className="wk-ic" ref={(el) => void (nodeEls.current[i] = el)}>
                   <svg viewBox="0 0 24 24">{nodeIcons[p.id]}</svg>
-                  <i className={`st${p.status === "live" ? "" : " amber"}`} />
+                  <i className="st" />
                 </span>
                 <b>{p.title}</b>
                 <small>{p.status}</small>
@@ -197,7 +197,7 @@ export default function WorkSection() {
                 <i />
                 <i />
                 <span>{P.repoName}</span>
-                <em className={P.status === "live" ? "" : "wip"}>● {P.status}</em>
+                <em>● {P.status}</em>
               </div>
               <div className="wk-prev">
                 <Preview p={P} />
