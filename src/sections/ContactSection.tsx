@@ -73,7 +73,6 @@ export default function ContactSection() {
     <section className="ct" id="contact">
       <Reveal className="ct-head">
         <span className="label">04 · contact</span>
-        <p className="ab3-hand">let&apos;s talk</p>
         <h2>Send me a letter</h2>
         <p className="ct-hint">It opens your own email app. Nothing is stored here.</p>
       </Reveal>

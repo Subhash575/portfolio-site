@@ -63,7 +63,6 @@ export default function AboutSection() {
     <section className="ab" id="about">
       <Reveal className="ab3-head">
         <span className="label">01 · about</span>
-        <p className="ab3-hand">a bit about me</p>
         <h2>
           About <span>me</span>
         </h2>

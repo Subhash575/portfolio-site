@@ -148,7 +148,6 @@ export default function WorkSection() {
     <section className="wk" id="work">
       <Reveal className="wk-head">
         <span className="label">02 · work</span>
-        <p className="ab3-hand">things I built</p>
         <h2>Recent projects</h2>
         <a className="wk-gh" href={siteConfig.github} target="_blank" rel="noreferrer">
           All on GitHub ↗

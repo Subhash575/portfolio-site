@@ -28,7 +28,6 @@ export default function CareerSection() {
     <section className="cr" id="exp">
       <Reveal className="cr-head">
         <span className="label">03 · career</span>
-        <p className="ab3-hand">how far I&apos;ve come</p>
         <h2>Career so far</h2>
         <p className="cr-hint">Pull the tape: every mark is something real.</p>
       </Reveal>
