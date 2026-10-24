@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/data";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: "https://subhashrana.dev/sitemap.xml",
+    sitemap: `${siteConfig.url}/sitemap.xml`,
   };
 }

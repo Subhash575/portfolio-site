@@ -1,17 +1,14 @@
-import React from "react";
+import { siteConfig } from "@/lib/data";
 
 export function PersonJsonLd() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Subhash Rana",
-    jobTitle: "Full Stack Developer",
-    url: "https://subhashrana.dev",
-    sameAs: [
-      "https://github.com/[handle]", // TODO: Update GitHub handle
-      "https://linkedin.com/in/[handle]", // TODO: Update LinkedIn handle
-      "https://twitter.com/[handle]", // TODO: Update Twitter handle
-    ],
+    name: siteConfig.name,
+    jobTitle: siteConfig.title,
+    url: siteConfig.url,
+    email: `mailto:${siteConfig.email}`,
+    sameAs: [siteConfig.github, siteConfig.linkedin],
   };
 
   return (

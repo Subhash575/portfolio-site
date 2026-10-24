@@ -1,39 +1,15 @@
-export type SkillGroup = {
-  category: string;
-  skills: { name: string; icon?: string; label?: string }[];
-};
+// Shown in the hero's tech marquee: names only, no proficiency bars.
+export const techStack = [
+  "Next.js",
+  "React",
+  "TypeScript",
+  "Node.js",
+  "PostgreSQL",
+  "MongoDB",
+  "Prisma",
+  "Docker",
+  "Tailwind CSS",
+  "AI SDK",
+] as const;
 
-export const skillGroups: SkillGroup[] = [
-  {
-    category: "frontend",
-    skills: [
-      { name: "React.js", icon: "⚛️" },
-      { name: "Next.js", icon: "▲" },
-      { name: "TypeScript", icon: "🔷" },
-      { name: "Tailwind CSS", icon: "🎨" },
-    ],
-  },
-  {
-    category: "backend",
-    skills: [
-      { name: "Node.js", icon: "🟢" },
-      { name: "Express.js", icon: "⚡" },
-      { name: "REST APIs", icon: "🔗" },
-    ],
-  },
-  {
-    category: "database",
-    skills: [
-      { name: "MongoDB", icon: "🍃" },
-      { name: "PostgreSQL", icon: "🐘" },
-      { name: "Prisma ORM", icon: "◆" },
-    ],
-  },
-  {
-    category: "tools",
-    skills: [
-      { name: "Git", icon: "📦" },
-      { name: "Framer Motion", icon: "🎞️" },
-    ],
-  },
-];
+export type Tech = (typeof techStack)[number];

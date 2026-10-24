@@ -1,136 +1,111 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { siteConfig } from "@/lib/data";
-import { fadeIn, floatAnimationSlow, staggerContainer } from "@/lib/animations";
 import Image from "next/image";
+import { ArrowUpRight, Download } from "lucide-react";
+import { SiReact, SiTypescript } from "react-icons/si";
+import { siteConfig } from "@/lib/data";
+import Reveal from "@/components/Reveal";
 
 export default function HeroSection() {
   return (
-    <section
-      id="hero"
-      className="relative flex items-start justify-between px-6 md:px-20 pt-25 md:pt-30 pb-15 overflow-hidden"
-    >
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="visible"
-        className="z-10 flex w-full flex-col md:flex-row items-center justify-between gap-10"
+    <section id="hero" className="relative overflow-hidden pt-24">
+      {/* Long curve behind the hero */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox="0 0 640 360"
+        preserveAspectRatio="none"
       >
-        <div className="flex flex-col gap-4 min-w-0 md:w-1/2">
-          <motion.div variants={fadeIn}>
-            <div className="relative h-22 w-22 overflow-hidden rounded-full ring-2 ring-accent">
-              <Image
-                src="/images/Subhash_pic.png"
-                alt="Subhash Rana"
-                fill
-                sizes="88px"
-                className="object-cover"
-                priority
-              />
-            </div>
-          </motion.div>
+        <path
+          className="draw-path animate-draw"
+          d="M-10 300 C 120 220, 200 360, 330 250 S 560 120, 660 200"
+          fill="none"
+          stroke="#ffd2b8"
+          strokeWidth="1.5"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
 
-          <motion.div variants={fadeIn} className="flex items-center gap-3">
-            <span className="inline-block w-fit rounded-full bg-surface-elevated px-3 py-1 text-small font-medium text-primary">
-              Hi, my name is
-            </span>
-            <div className="flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-              </span>
-              Open to work
-            </div>
-          </motion.div>
-
-          <div className="flex flex-col gap-2 min-w-0">
-            <h1 className="relative z-10 text-h1 font-heading font-extrabold text-on-surface opacity-100 wrap-break-word md:text-[clamp(2.5rem,5vw,4rem)] md:leading-tight">
-              {siteConfig.name}
+      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-6 pb-16 md:grid-cols-2">
+        <div>
+          <Reveal>
+            <p className="font-hand text-3xl text-orange-text">Hi there,</p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h1 className="mt-1 text-5xl leading-[1.05] font-extrabold tracking-tight md:text-6xl">
+              I&apos;m <span className="text-orange">{siteConfig.name}</span>
             </h1>
-
-            <motion.h2
-              variants={fadeIn}
-              className="text-h3 font-heading font-bold text-gray-400 wrap-break-word"
-            >
-              {siteConfig.title}
-              <span className="animate-pulse text-accent">|</span>
-            </motion.h2>
-          </div>
-
-          <motion.p
-            variants={fadeIn}
-            className="max-w-2xl text-body text-secondary"
-          >
-            {siteConfig.tagline}
-          </motion.p>
-
-          <motion.div
-            variants={fadeIn}
-            className="mt-4 flex flex-col sm:flex-row flex-wrap gap-4"
-          >
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
+              Full-stack engineer building <b className="text-ink">AI coding agents</b>{" "}
+              and production web apps. SDE intern at Matchbest, B.Tech CSE &apos;26.
+            </p>
+          </Reveal>
+          <Reveal delay={0.24} className="mt-8 flex flex-wrap gap-3">
             <a
-              href="#projects"
-              className="flex w-full sm:w-auto items-center justify-center h-12 px-6 rounded-lg text-base font-medium bg-indigo-500 text-white transition-colors hover:bg-indigo-600"
+              href="#contact"
+              className="inline-flex items-center gap-3 rounded-full bg-orange-btn py-1.5 pr-1.5 pl-5 font-bold text-white transition-transform hover:-translate-y-0.5"
             >
-              View Projects
+              Get in touch
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-orange-btn">
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </span>
             </a>
             <a
-              href="cv/subhash_resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex w-full sm:w-auto items-center justify-center gap-2 h-12 px-6 rounded-lg text-base font-medium border-2 border-indigo-500 text-indigo-500 transition-colors hover:bg-indigo-50 dark:border-[rgba(255,255,255,0.65)] dark:text-white dark:hover:bg-white/10"
+              href={siteConfig.resume}
               download
+              className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink px-5 py-2.5 font-bold transition-colors hover:bg-ink hover:text-white"
             >
+              <Download className="h-4 w-4" aria-hidden="true" />
               Download CV
             </a>
-          </motion.div>
+          </Reveal>
         </div>
 
-        <motion.div
-          variants={fadeIn}
-          animate={floatAnimationSlow}
-          className="relative mx-auto w-full md:mx-0 md:w-1/2 opacity-65 min-w-0 md:self-center"
-        >
-          <div className="overflow-hidden rounded-xl border border-subtle/80 bg-surface-elevated shadow-none max-w-125 w-full ml-auto">
-            <div className="flex items-center gap-2 border-b border-subtle/80 px-5 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-              <p className="ml-3 text-caption font-medium uppercase tracking-wider text-muted">
-                live-snippet.ts
-              </p>
-            </div>
-
-            <div className="space-y-2 bg-surface/10 px-5 py-6 font-mono text-small text-zinc-200">
-              <p>
-                <span className="text-indigo-300">const</span>{" "}
-                <span className="text-emerald-300">stack</span>{" "}
-                <span className="text-muted">=</span>{" "}
-                <span className="text-amber-300">[</span>
-                <span className="text-sky-300">&quot;MERN&quot;</span>
-                <span className="text-muted">,</span>{" "}
-                <span className="text-sky-300">&quot;Next.js&quot;</span>
-                <span className="text-amber-300">]</span>
-              </p>
-              <p>
-                <span className="text-indigo-300">export const</span>{" "}
-                <span className="text-emerald-300">build</span>{" "}
-                <span className="text-muted">=</span>{" "}
-                <span className="text-amber-300">()</span>{" "}
-                <span className="text-muted">=&gt;</span>{" "}
-                <span className="text-amber-300">{"{"}</span>
-              </p>
-              <p className="pl-5 text-zinc-300">performance: high,</p>
-              <p className="pl-5 text-zinc-300">ui: intentional,</p>
-              <p className="pl-5 text-zinc-300">impact: measurable</p>
-              <p>
-                <span className="text-amber-300">{"}"}</span>
-              </p>
-            </div>
+        <Reveal delay={0.2} className="relative mx-auto h-[380px] w-full max-w-[420px]">
+          {/* Orange blob behind, photo clipped to a second blob on top */}
+          <div className="animate-blob absolute top-1/2 left-1/2 h-72 w-72 -translate-x-[45%] -translate-y-[46%] bg-orange" />
+          <div className="animate-blob absolute top-1/2 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 overflow-hidden [animation-delay:-3s]">
+            <Image
+              src="/images/Subhash_pic.png"
+              alt="Portrait of Subhash Rana"
+              fill
+              sizes="256px"
+              className="object-cover"
+              priority
+            />
           </div>
-        </motion.div>
-      </motion.div>
+
+          <div className="animate-bob absolute top-8 right-0 rounded-xl bg-white px-3 py-2 text-sm shadow-[0_10px_30px_-10px_rgba(20,20,20,0.3)] [--r:2deg]">
+            <b className="text-orange-text">SDE Intern</b>
+            <br />
+            <span className="text-muted">@ Matchbest Software</span>
+          </div>
+          <div className="animate-bob absolute bottom-12 left-0 -rotate-3 rounded-xl bg-white px-3 py-2 text-sm shadow-[0_10px_30px_-10px_rgba(20,20,20,0.3)] [--r:-3deg] [animation-delay:-1.5s]">
+            <b>308</b> <span className="text-muted">tests shipped</span>
+          </div>
+          <div className="animate-bob absolute top-6 left-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-2xl text-[#3178c6] shadow-[0_8px_24px_-8px_rgba(20,20,20,0.3)] [animation-duration:5s]">
+            <SiTypescript aria-hidden="true" />
+          </div>
+          <div className="animate-bob absolute right-6 bottom-6 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-2xl text-[#149eca] shadow-[0_8px_24px_-8px_rgba(20,20,20,0.3)] [animation-delay:-2s] [animation-duration:5s]">
+            <SiReact aria-hidden="true" />
+          </div>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 60 30"
+            className="absolute top-0 right-20 w-16"
+          >
+            <path
+              className="draw-path animate-draw"
+              d="M2 20 C 10 2, 18 30, 26 12 S 42 2, 46 18 S 56 22, 58 8"
+              fill="none"
+              stroke="#141414"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+          <span className="animate-bob absolute top-36 left-14 h-4 w-4 rounded-full bg-orange-text [animation-duration:3s]" />
+        </Reveal>
+      </div>
     </section>
   );
 }

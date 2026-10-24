@@ -3,7 +3,7 @@ export type Experience = {
   company: string;
   role: string;
   duration: string;
-  description: string;
+  location: string;
   contributions: string[];
   techStack: string[];
 };
@@ -14,21 +14,13 @@ export const experiences: Experience[] = [
     role: "Software Development Intern",
     company: "Matchbest Software",
     duration: "Dec 2025 – Mar 2026",
-    description:
-      "Engineered key modules of an Employee Management System and built responsive UI for client projects, contributing to production-level applications used by real teams.",
+    location: "Haryana, India",
     contributions: [
-      "Architected the Leave Application module — empowering employees to submit, track, and monitor leave requests with real-time status updates and admin approval workflows.",
-      "Implemented the Reimbursement Application module — streamlining expense claim submissions with document uploads and equipping finance teams with a structured review and approval pipeline.",
-      "Crafted RESTful APIs and enforced role-based access control (RBAC) to safeguard data security across employee and admin roles.",
-      "Built responsive UI components for Maverickservices using Next.js and Tailwind CSS, ensuring cross-browser compatibility and seamless mobile responsiveness.",
+      "Built the Leave and Reimbursement modules of an Employee Management System in Next.js: request tracking, document uploads and admin approval flows.",
+      "Wrote REST APIs with role-based access control (RBAC) across employee and admin roles.",
+      "Built dashboards, lead tracking and client data features for Ava CRM on PostgreSQL + Prisma.",
+      "Built responsive UI components for Maverickservices with Next.js and Tailwind CSS.",
     ],
-    techStack: [
-      "Next.js",
-      "Tailwind CSS",
-      "Node.js",
-      "Express.js",
-      "PostgreSQL",
-      "Prisma ORM",
-    ],
+    techStack: ["Next.js", "Tailwind CSS", "Node.js", "PostgreSQL", "Prisma"],
   },
 ];

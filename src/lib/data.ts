@@ -2,8 +2,8 @@ import type { NavLink, Stat, SocialLink } from "@/types";
 
 export const navLinks: NavLink[] = [
   { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
+  { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -11,26 +11,28 @@ export const socialLinks: SocialLink[] = [
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/subhash-rana-5724382b8/",
-    icon: "open_in_new",
+    icon: "linkedin",
   },
-  { label: "GitHub", href: "https://github.com/Subhash575", icon: "code" },
+  { label: "GitHub", href: "https://github.com/Subhash575", icon: "github" },
   { label: "Email", href: "mailto:subhash09468@gmail.com", icon: "mail" },
 ];
 
+// Every number here must stay traceable to the CV or a public repo.
 export const stats: Stat[] = [
-  { value: "3", label: "Apps Shipped", suffix: "+" },
-  { value: "10", label: "GitHub Repos", suffix: "+" },
-  { value: "5", label: "Tech Stacks", suffix: "+" },
-  { value: "25", label: "Faster API Delivery", suffix: "%" },
+  { value: "3", label: "apps shipped" },
+  { value: "308", label: "automated tests", suffix: "+" },
+  { value: "25", label: "faster API", suffix: "%" },
 ];
 
 export const siteConfig = {
   name: "Subhash Rana",
-  title: "Full Stack Developer",
-  tagline:
-    "Crafting scalable web applications with a focus on performance, clean architecture, and user experience.",
-  bio: "I'm a Computer Science undergraduate and full-stack developer specializing in the MERN stack. I have hands-on experience building scalable applications during my internship at Matchbest Software, where I developed real-world systems like employee management workflows. I enjoy solving complex problems, optimizing performance, and building intuitive user experiences.",
+  title: "Full-stack engineer",
+  description:
+    "Subhash Rana: full-stack engineer building AI coding agents and production web apps. SDE intern at Matchbest, B.Tech CSE '26. Open to SDE-1 roles.",
+  bio: "From Hisar, Haryana. I build full-stack apps with Next.js and Node, and terminal AI agents that call tools, ask before risky actions, and get tested with evals.",
   email: "subhash09468@gmail.com",
   linkedin: "https://www.linkedin.com/in/subhash-rana-5724382b8/",
   github: "https://github.com/Subhash575",
+  resume: "/cv/subhash_cv.pdf",
+  url: "https://subhash.live",
 };
