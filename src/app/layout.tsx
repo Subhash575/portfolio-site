@@ -5,6 +5,7 @@ import "./globals.css";
 import "./workbench.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import TrackClicks from "@/components/TrackClicks";
 import { PersonJsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/data";
 
@@ -58,6 +59,7 @@ export default function RootLayout({
         <Footer />
         <PersonJsonLd />
         <Analytics />
+        <TrackClicks />
       </body>
     </html>
   );

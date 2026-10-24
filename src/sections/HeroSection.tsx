@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/data";
+import { trackLink } from "@/lib/track";
 import { curve, rectIn, reducedMotion, useMeasured } from "@/lib/wires";
 import { AskPilot, Commits, QuickActions, RoleCard } from "./hero/SideCards";
 
@@ -120,6 +121,7 @@ export default function HeroSection() {
       const key = KEYS.find((x) => x.k === e.key.toLowerCase() && x.k !== " ");
       if (!key) return;
       press(key.k);
+      trackLink(key.href, key.label, "hero-keyboard");
       setTimeout(() => go(key.href), 160);
     };
     window.addEventListener("keydown", onKey);

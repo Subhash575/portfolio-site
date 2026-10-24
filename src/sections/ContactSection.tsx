@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@vercel/analytics";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Reveal from "@/components/Reveal";
@@ -39,6 +40,7 @@ export default function ContactSection() {
     setErrs(next);
     if (next.name || next.msg) return;
     const href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`${re} — from ${name.trim()}`)}&body=${encodeURIComponent(`${msg.trim()}\n\n— ${name.trim()}`)}`;
+    track("send_letter", { reason: re });
     setSent(true);
     setTimeout(
       () => {
@@ -57,6 +59,7 @@ export default function ContactSection() {
   };
 
   const copyEmail = async () => {
+    track("copy_email", { where: "contact" });
     try {
       await navigator.clipboard.writeText(siteConfig.email);
       setCopy("copied ✓");

@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@vercel/analytics";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { pilotFaq, recentCommits, roleFit, type FaqKey, type Role } from "@/data/hero";
 import { siteConfig } from "@/lib/data";
@@ -50,6 +51,7 @@ export const QuickActions = forwardRef<HTMLDivElement, CardProps>(function Quick
   const [copied, setCopied] = useState<string | null>(null);
   const copy = async () => {
     onSignal("c");
+    track("copy_email", { where: "hero" });
     try {
       await navigator.clipboard.writeText(siteConfig.email);
       setCopied("copied ✓");
