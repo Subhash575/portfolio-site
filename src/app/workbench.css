@@ -597,7 +597,9 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
 .mc svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .mc .base{fill:none;stroke:#cfc4b1;stroke-width:6;stroke-linecap:round}
 .mc .core{fill:none;stroke:#e9e0d1;stroke-width:2;stroke-linecap:round}
-.mc .fill{fill:none;stroke:var(--or);stroke-width:6;stroke-linecap:round;stroke-dasharray:0 99999;filter:drop-shadow(0 0 5px rgba(255,107,26,.45));transition:stroke-dasharray .15s linear}
+/* glow is a wider translucent stroke, not a CSS filter: filtered SVG layers left ghost dashes while scrolling */
+.mc .glow{fill:none;stroke:rgba(255,107,26,.22);stroke-width:14;stroke-linecap:round;stroke-dasharray:0 99999}
+.mc .fill{fill:none;stroke:var(--or);stroke-width:6;stroke-linecap:round;stroke-dasharray:0 99999}
 .mc .run{fill:none;stroke:#ffd2b8;stroke-width:2;stroke-linecap:round;stroke-dasharray:3 22;animation:mcrun 1.4s linear infinite}
 @keyframes mcrun{to{stroke-dashoffset:-25}}
 .mc .br{fill:none;stroke:#cfc4b1;stroke-width:4;stroke-linecap:round}
@@ -623,4 +625,4 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
   .mc .base,.mc .fill{stroke-width:4}
   .mc-meter{display:none}
 }
-@media (prefers-reduced-motion:reduce){.mc .run{display:none}.mc .fill{transition:none}}
+@media (prefers-reduced-motion:reduce){.mc .run{display:none}}

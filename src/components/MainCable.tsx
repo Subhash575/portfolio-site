@@ -66,6 +66,7 @@ function measure(main: HTMLElement): Layout | null {
 export default function MainCable() {
   const root = useRef<HTMLDivElement>(null);
   const fill = useRef<SVGPathElement>(null);
+  const glow = useRef<SVGPathElement>(null);
   const pct = useRef<HTMLElement>(null);
   const [lay, setLay] = useState<Layout | null>(null);
 
@@ -99,6 +100,7 @@ export default function MainCable() {
       for (const [s, sy] of samples) if (sy <= y) len = s;
       if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) len = L;
       path.style.strokeDasharray = `${len} ${L}`;
+      if (glow.current) glow.current.style.strokeDasharray = `${len} ${L}`;
       const tip = path.getPointAtLength(len).y;
       host.querySelectorAll<HTMLElement | SVGElement>("[data-at]").forEach((el) => el.classList.toggle("on", tip >= Number(el.dataset.at) - 2));
       if (pct.current) pct.current.textContent = `${Math.round((len / L) * 100)}%`;
@@ -122,6 +124,7 @@ export default function MainCable() {
               ))}
               <path d={lay.d} className="base" />
               <path d={lay.d} className="core" />
+              <path d={lay.d} className="glow" ref={glow} />
               <path d={lay.d} className="fill" ref={fill} />
               <path d={lay.d} className="run" />
               {lay.start && <circle cx={lay.start.x} cy={lay.start.y} r={6} className="plug on" />}
