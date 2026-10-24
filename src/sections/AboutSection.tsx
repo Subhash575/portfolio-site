@@ -141,6 +141,7 @@ export default function AboutSection() {
             ))}
           </div>
         </div>
+        <span className="matlbl">about · cutting mat</span>
       </Reveal>
     </section>
   );
