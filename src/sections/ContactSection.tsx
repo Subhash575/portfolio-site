@@ -91,7 +91,7 @@ export default function ContactSection() {
               </div>
             </div>
             <div className="ct-pm" aria-hidden="true">
-              <span>HISAR · IN</span>
+              <span>NCR · IN</span>
               <b>
                 OPEN
                 <br />
@@ -192,7 +192,7 @@ export default function ContactSection() {
             </div>
             <div>
               <b className="ct-clock">{clock}</b>
-              <small>Hisar, India · IST</small>
+              <small>NCR, India · IST</small>
             </div>
           </div>
         </aside>

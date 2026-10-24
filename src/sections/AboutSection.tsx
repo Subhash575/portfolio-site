@@ -93,7 +93,7 @@ export default function AboutSection() {
                 <b>Subhash Rana</b>
                 <small>Full-stack engineer · AI agents</small>
                 <p>
-                  From Hisar, Haryana. I build full-stack apps with Next.js and Node, and terminal AI agents that call tools, ask before
+                  Based in NCR, India. I build full-stack apps with Next.js and Node, and terminal AI agents that call tools, ask before
                   risky actions, and get tested with evals.
                 </p>
                 <span className="ab3-edu">B.Tech CSE · CGPA 7.75 · St. Andrews Institute · 2022–26</span>
