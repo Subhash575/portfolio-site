@@ -252,7 +252,16 @@ export default function HeroSection() {
                   <>
                     {key.led && <span className="led" style={{ background: key.led }} />}
                     <span className="cap">{key.cap}</span>
-                    <span className="lbl">{KEY_TEXT[key.k]}</span>
+                    <span className="lbl">
+                      {key.k === "e" ? (
+                        <>
+                          exp<span className="dx">erience</span>
+                          <span className="sx">.</span>
+                        </>
+                      ) : (
+                        KEY_TEXT[key.k]
+                      )}
+                    </span>
                   </>
                 )}
               </a>

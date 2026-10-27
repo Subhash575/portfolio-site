@@ -40,6 +40,7 @@ footer{padding:30px 0 40px;text-align:center;font-size:13px;color:var(--mu)}
 .key.down,.key:active{transform:translateY(4px);box-shadow:inset 0 1px 0 #fff,0 1px 0 #cfccc4,0 2px 4px -2px rgba(0,0,0,.35)}
 .key .cap{font-family:var(--font-code),monospace;font-size:20px;font-weight:500}
 .key .lbl{font-size:11px;color:var(--mu);font-weight:600}
+.key .sx{display:none}
 .key .led{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%}
 .key.photo{padding:0;overflow:hidden}
 .key.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;display:block}
@@ -69,9 +70,10 @@ kbd{font-family:var(--font-code),monospace;background:#fff;border-radius:5px;pad
   .key .cap{font-size:15px}
   .key .lbl{font-size:9px}
   .key .led{display:none}
+  .key .sx{display:inline}
   /* phone: a one-word strip along the bottom edge, below the face */
   .key.photo .lbl{left:0;right:0;bottom:0;padding:8px 0 3px;text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.6))}
-  .key.photo .dx{display:none}
+  .key.photo .dx,.key .dx{display:none}
   .key.space .lbl{font-size:10px}
   .cur{display:none}
   .hint .kdesk{display:none}
