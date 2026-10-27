@@ -631,3 +631,31 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
 }
 @media (max-width:760px){.mc-meter{display:none}}
 @media (prefers-reduced-motion:reduce){.mc .run{display:none}}
+
+/* ── case study page (cs-) ── */
+.cs{width:min(1100px,calc(100% - 48px));margin:0 auto;padding:112px 0 72px}
+.cs-back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--ort);text-decoration:none}
+.cs-back:hover{text-decoration:underline}
+.cs-head{margin:28px 0 24px;max-width:760px}
+.cs-head h1{font-size:48px;letter-spacing:-.04em;line-height:1;margin:6px 0 0;color:var(--ink)}
+.cs-head h1 span{color:var(--or)}
+.cs-lead{margin:16px 0 0;font-size:18px;line-height:1.6;color:#4a4238}
+.cs-tags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 22px}
+.cs-tags span{padding:5px 11px;border-radius:9px;font-family:var(--font-code),monospace;font-size:11px;color:#4a4238;background:linear-gradient(180deg,#fff,#f1f0ec);box-shadow:inset 0 1px 0 #fff,0 2px 0 #cfccc4}
+.cs-mat{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:40px 30px 44px;border-radius:34px;
+  background-color:rgba(255,255,255,.4);background-image:linear-gradient(rgba(150,130,100,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(150,130,100,.08) 1px,transparent 1px);background-size:24px 24px;background-position:center;
+  border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 2px 0 #fff,0 34px 70px -44px rgba(90,65,35,.55)}
+.cs-card{padding:22px 24px;border-radius:20px;background:var(--obj);box-shadow:var(--objshadow)}
+.cs-card.wide{grid-column:1/-1}
+.cs-card h2{margin:6px 0 0;font-size:22px;letter-spacing:-.02em;color:var(--ink)}
+.cs-card p{margin:10px 0 0;font-size:15px;line-height:1.65;color:#4a4238}
+.cs-card.hot{background:var(--g-or);color:#1a0800}
+.cs-card.hot .label,.cs-card.hot h2,.cs-card.hot p{color:#1a0800}
+.cs-stat{display:block;margin-top:8px;font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.cs-fig svg{width:100%;height:auto;display:block;margin-top:14px}
+.cs-fig figcaption{margin-top:12px;font-size:14px;line-height:1.6;color:#4a4238}
+@media (max-width:760px){
+  .cs{padding-top:96px}
+  .cs-head h1{font-size:38px}
+  .cs-mat{grid-template-columns:1fr;padding:34px 14px 40px;border-radius:26px}
+}
