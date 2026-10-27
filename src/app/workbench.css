@@ -674,7 +674,7 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
 .cs-keys span{display:block;margin-top:10px;font-size:13px;font-weight:700}
 .cs-keys small{display:block;margin-top:2px;font-size:12px;opacity:.7}
 /* signal cable + stations */
-.cs-flow{--p:0px;position:relative;display:grid;grid-template-columns:1fr 64px 1fr;row-gap:34px;margin-top:64px}
+.cs-flow{--p:0px;position:relative;display:grid;grid-template-columns:1fr 96px 1fr;row-gap:34px;margin-top:64px}
 .cs-flow::before,.cs-flow::after{content:"";position:absolute;left:50%;top:0;width:6px;margin-left:-3px;border-radius:3px}
 .cs-flow::before{bottom:0;background:linear-gradient(90deg,#cfc4b1 0 2px,#e9e0d1 2px 4px,#cfc4b1 4px 6px)}
 .cs-flow::after{height:var(--p);background:repeating-linear-gradient(180deg,#ffd2b8 0 3px,transparent 3px 25px) center 0/2px 100% no-repeat,var(--or);box-shadow:0 0 0 4px rgba(255,107,26,.22);animation:cs-run 1.4s linear infinite}
@@ -682,7 +682,7 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
 .cs-cap,.cs-tip{position:absolute;left:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fffdf9;border:2px solid var(--or);box-sizing:border-box;z-index:0;pointer-events:none}
 .cs-cap{top:0}
 .cs-tip{top:var(--p)}
-.cs-step{position:relative;z-index:1;grid-column:1/-1;display:grid;grid-template-columns:1fr 64px 1fr;align-items:start;row-gap:12px}
+.cs-step{position:relative;z-index:1;grid-column:1/-1;display:grid;grid-template-columns:1fr 96px 1fr;align-items:start;row-gap:12px}
 .cs-node{position:relative;grid-column:2;grid-row:1;justify-self:center;display:grid;place-items:center;width:56px;height:46px;border-radius:12px;font-style:normal;font:500 15px var(--font-code),monospace;color:var(--ink);background:linear-gradient(#fffdf9,#f4eee4);box-shadow:0 1px 0 #fff inset,0 4px 0 #d6cdbd,0 8px 14px rgba(70,50,20,.14)}
 .cs-node::after{content:"";position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#d6cdbd;transition:background .3s,box-shadow .3s}
 .cs-node.on::after{background:var(--or);box-shadow:0 0 0 3px rgba(255,107,26,.25),0 0 8px var(--or)}
@@ -692,9 +692,9 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
 .cs-step.l .cs-card{grid-column:1;grid-row:1}
 .cs-step.r .cs-card{grid-column:3;grid-row:1}
 .cs-step.wide .cs-card{grid-column:1/-1;grid-row:2}
-.cs-step.l .cs-card::after,.cs-step.r .cs-card::after{content:"";position:absolute;z-index:-1;top:21px;width:32px;height:4px;border-radius:2px;background:#cfc4b1;transition:background .3s}
-.cs-step.l .cs-card::after{right:-32px}
-.cs-step.r .cs-card::after{left:-32px}
+.cs-step.l .cs-card::after,.cs-step.r .cs-card::after{content:"";position:absolute;z-index:-1;top:21px;width:48px;height:4px;border-radius:2px;background:#cfc4b1;transition:background .3s}
+.cs-step.l .cs-card::after{right:-48px}
+.cs-step.r .cs-card::after{left:-48px}
 .cs-step:has(.cs-node.on) .cs-card::after{background:#ff6b1a}
 .cs-card{position:relative;padding:24px 26px;border-radius:22px;background:var(--obj);box-shadow:var(--objshadow);scroll-margin-top:110px}
 .cs-card.dash{background:rgba(255,255,255,.35);box-shadow:none;border:2px dashed #cdbfa8}
