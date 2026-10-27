@@ -492,8 +492,8 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:#fffdf9;b
 .cr-wo.hl{box-shadow:0 0 0 3px rgba(255,107,26,.45),0 24px 40px -26px rgba(90,65,35,.6)}
 @media (max-width:1100px){
   .cr-orders{grid-template-columns:minmax(0,1fr)}
-  .cr-tabs{width:auto;overflow-x:auto;flex-wrap:nowrap}
-  .cr-tabs button{flex-shrink:0}
+  .cr-tabs{width:auto;flex-wrap:wrap}
+  .cr-tabs button{flex:1 1 auto;min-height:44px}
   .cr-mk.up small{display:none}
 }
 @media (max-width:760px){
