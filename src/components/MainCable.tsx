@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 // One cable runs from the hero keyboard down the page, plugging into each section through the key that opens it.
 const STOPS = [
-  { href: "#about", head: ".ab3-head", mat: ".ab3-mat", cap: null, led: "#ff6b1a", n: "01", note: "a bit about me" },
+  { href: "#about", head: ".ab3-head", mat: ".ab3-mat", cap: "A", led: "#ff6b1a", n: "01", note: "a bit about me" },
   { href: "#work", head: ".wk-head", mat: ".wk-mat", cap: "P", led: "#ff6b1a", n: "02", note: "things I built" },
   { href: "#exp", head: ".cr-head", mat: ".cr-mat", cap: "E", led: "#7c5cff", n: "03", note: "how far I've come" },
   { href: "#contact", head: ".ct-head", mat: ".ct-mat", cap: "C", led: "#16a34a", n: "04", note: "let's talk" },
@@ -133,7 +132,7 @@ export default function MainCable() {
             </svg>
             {STOPS.map((s, i) => (
               <a key={s.href} className="mc-port" href={s.href} tabIndex={-1} data-at={lay.ports[i].y} style={{ left: lay.ports[i].x, top: lay.ports[i].y, "--led": s.led } as React.CSSProperties}>
-                {s.cap ?? <Image src="/images/Subhash_pic.png" alt="" width={32} height={32} />}
+                {s.cap}
                 <i />
                 <small>{s.n}</small>
               </a>
