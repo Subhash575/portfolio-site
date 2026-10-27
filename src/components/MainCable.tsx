@@ -39,8 +39,9 @@ function measure(main: HTMLElement): Layout | null {
   const mobile = window.innerWidth <= 760;
   const gx = mobile ? 14 : first.l - 36;
   const sy = mobile ? hero.b + 10 : hero.b - 70;
-  const hx = hero.l + hero.w / 2;
-  let d = mobile ? `M${hx} ${hero.b - 10} C${hx} ${sy + 50} ${gx} ${sy} ${gx} ${sy + 70}` : `M${hero.l + 2} ${sy} C${gx} ${sy} ${gx} ${sy} ${gx} ${sy + 40}`;
+  // Phone: leave from the keyboard's bottom-left corner so the cable never crosses the "press P E C" hint.
+  const hx = hero.l + 10;
+  let d = mobile ? `M${hx} ${hero.b - 10} C${hx} ${sy + 30} ${gx} ${sy} ${gx} ${sy + 60}` : `M${hero.l + 2} ${sy} C${gx} ${sy} ${gx} ${sy} ${gx} ${sy + 40}`;
 
   const ports: Layout["ports"] = [], tags: Layout["tags"] = [], branches: Layout["branches"] = [];
   let prevBottom = rel(".kfoot")?.b ?? hero.b;
