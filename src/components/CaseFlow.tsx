@@ -13,6 +13,7 @@ export default function CaseFlow({ children }: { children: React.ReactNode }) {
       const tip = Math.min(Math.max(window.innerHeight * 0.6 - r.top, 0), r.height);
       host.style.setProperty("--p", `${tip}px`);
       host.classList.toggle("done", tip >= r.height - 2);
+      host.classList.toggle("go", tip > 56);
       host.querySelectorAll<HTMLElement>(".cs-node").forEach((n) => {
         const b = n.getBoundingClientRect();
         n.classList.toggle("on", b.top + b.height / 2 - r.top <= tip);
@@ -28,7 +29,6 @@ export default function CaseFlow({ children }: { children: React.ReactNode }) {
   }, []);
   return (
     <div className="cs-flow" ref={ref}>
-      <i className="cs-cap" aria-hidden="true" />
       <i className="cs-tip" aria-hidden="true" />
       <i className="cs-plug" aria-hidden="true" />
       {children}

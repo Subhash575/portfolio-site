@@ -680,8 +680,8 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:#fffdf9;b
 .cs-flow::after{height:var(--p);background:repeating-linear-gradient(180deg,#ffd2b8 0 3px,transparent 3px 25px) center 0/2px 100% no-repeat,var(--or);box-shadow:0 0 0 4px rgba(255,107,26,.22);animation:cs-run 1.4s linear infinite}
 @keyframes cs-run{to{background-position:center 25px,0 0}}
 .cs-cap,.cs-tip{position:absolute;left:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fffdf9;border:2px solid var(--or);box-sizing:border-box;z-index:0;pointer-events:none}
-.cs-cap{top:0}
-.cs-tip{top:var(--p)}
+.cs-tip{top:var(--p);opacity:0;transition:opacity .2s}
+.cs-flow.go .cs-tip{opacity:1}
 .cs-step{position:relative;z-index:1;grid-column:1/-1;display:grid;grid-template-columns:1fr 96px 1fr;align-items:start;row-gap:12px}
 .cs-node{position:relative;grid-column:2;grid-row:1;justify-self:center;display:grid;place-items:center;width:56px;height:46px;border-radius:12px;font-style:normal;font:500 15px var(--font-code),monospace;color:var(--ink);background:linear-gradient(#fffdf9,#f4eee4);box-shadow:0 1px 0 #fff inset,0 4px 0 #d6cdbd,0 8px 14px rgba(70,50,20,.14)}
 .cs-node::after{content:"";position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:#d6cdbd;transition:background .3s,box-shadow .3s}
@@ -777,7 +777,7 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:#fffdf9;b
   .cs-end p{font-size:22px}
   .cs-flow::before,.cs-flow::after{left:22px;width:4px;margin-left:-2px}
   .cs-flow::before{background:linear-gradient(90deg,#cfc4b1 0 1px,#e9e0d1 1px 3px,#cfc4b1 3px 4px)}
-  .cs-cap,.cs-tip{left:22px}
+  .cs-tip{left:22px}
   .cs-node::after{width:5px;height:5px;top:3px;right:3px}
   .cs-step{grid-template-columns:44px 1fr}
   .cs-node{width:38px;height:34px;font-size:11px;border-radius:10px;grid-column:1;grid-row:1}
