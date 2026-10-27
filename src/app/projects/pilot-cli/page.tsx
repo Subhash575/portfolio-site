@@ -207,6 +207,7 @@ export default function PilotCliCaseStudy() {
             or say hi →
           </Link>
         </div>
+        <span className="matlbl">case study · plug in</span>
       </Reveal>
     </main>
   );
