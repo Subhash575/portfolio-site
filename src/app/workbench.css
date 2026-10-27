@@ -679,7 +679,7 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
 .cs-flow::before{bottom:0;background:linear-gradient(90deg,#cfc4b1 0 2px,#e9e0d1 2px 4px,#cfc4b1 4px 6px)}
 .cs-flow::after{height:var(--p);background:repeating-linear-gradient(180deg,#ffd2b8 0 3px,transparent 3px 25px) center 0/2px 100% no-repeat,var(--or);box-shadow:0 0 0 4px rgba(255,107,26,.22);animation:cs-run 1.4s linear infinite}
 @keyframes cs-run{to{background-position:center 25px,0 0}}
-.cs-cap,.cs-tip{position:absolute;left:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fffdf9;border:2px solid var(--or);box-sizing:border-box;z-index:2;pointer-events:none}
+.cs-cap,.cs-tip{position:absolute;left:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fffdf9;border:2px solid var(--or);box-sizing:border-box;z-index:0;pointer-events:none}
 .cs-cap{top:0}
 .cs-tip{top:var(--p)}
 .cs-step{position:relative;z-index:1;grid-column:1/-1;display:grid;grid-template-columns:1fr 64px 1fr;align-items:start;row-gap:12px}
