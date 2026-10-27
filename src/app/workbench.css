@@ -792,3 +792,11 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:#fffdf9;b
   .cs-lcd .score b{font-size:34px}
 }
 @media (prefers-reduced-motion:reduce){.cs-flow::after{animation:none}.cs-screen .cur,.cs-pipe li::after,.cs-cube,.cs-unplug i,.cs-rocker .nudge{animation:none!important}.cs-gauge i{transition:none}}
+
+/* phone tap targets: at least 44px tall */
+@media (max-width:760px){
+  .ksections{gap:0 22px;margin-top:28px}
+  .ksections a,.wk-gh,.cr-next{display:inline-flex;align-items:center;min-height:44px}
+  .cr-next{margin-top:6px}
+  .wk-gh{margin-top:0}
+}
