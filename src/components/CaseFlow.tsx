@@ -27,6 +27,8 @@ export default function CaseFlow({ children }: { children: React.ReactNode }) {
   }, []);
   return (
     <div className="cs-flow" ref={ref}>
+      <i className="cs-cap" aria-hidden="true" />
+      <i className="cs-tip" aria-hidden="true" />
       {children}
     </div>
   );
