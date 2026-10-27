@@ -688,7 +688,7 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
 .cs-node.on::after{background:var(--or);box-shadow:0 0 0 3px rgba(255,107,26,.25),0 0 8px var(--or)}
 .cs-node.dash{border:2px dashed #cdbfa8;background:#f4efe6;box-shadow:none}
 .cs-node.dash.on{color:var(--ort)}
-.cs-node.dash::after{display:none}
+.cs-node.dash::after{top:3px;right:3px}
 .cs-step.l .cs-card{grid-column:1;grid-row:1}
 .cs-step.r .cs-card{grid-column:3;grid-row:1}
 .cs-step.wide .cs-card{grid-column:1/-1;grid-row:2}
