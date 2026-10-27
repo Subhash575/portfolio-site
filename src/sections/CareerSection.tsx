@@ -29,7 +29,7 @@ export default function CareerSection() {
       <Reveal className="cr-head">
         <span className="label">03 · career</span>
         <h2>Career so far</h2>
-        <p className="cr-hint">Pull the tape: every mark is something real.</p>
+        <p className="cr-hint">Pull the tape: each mark is a project, a milestone or the internship.</p>
       </Reveal>
       <Reveal className="cr-mat">
         <div className="cr-tapewrap">
@@ -119,7 +119,7 @@ export default function CareerSection() {
             <ul>
               <li>Full-stack + AI agents</li>
               <li>Remote or on-site</li>
-              <li>Ready to ship from day one</li>
+              <li>Ready from day one</li>
             </ul>
             <a className="hirek" href="#contact">
               Hire me <span>↵</span>

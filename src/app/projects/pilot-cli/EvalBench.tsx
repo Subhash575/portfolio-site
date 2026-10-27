@@ -17,7 +17,7 @@ export default function EvalBench() {
             exact
           </button>
         </div>
-        <p>{exact ? "readFile and listFiles each say exactly when to use them." : "Press “exact” to rewrite readFile and listFiles."}</p>
+        <p>{exact ? "readFile and listFiles each say exactly when to use them." : "Press exact to rewrite readFile and listFiles."}</p>
       </div>
 
       <div className={`cs-lcd${exact ? " good" : ""}`} aria-live="polite">

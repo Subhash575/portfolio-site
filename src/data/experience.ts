@@ -4,7 +4,7 @@ export const internship = {
   role: "Software Development Intern",
   company: "Matchbest Software",
   location: "Haryana, India",
-  duration: "Dec 2025 – Mar 2026",
+  duration: "Dec 2025 to Mar 2026",
   projects: [
     {
       id: "ems",

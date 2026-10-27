@@ -194,7 +194,7 @@ export default function HeroSection() {
             <i />
             <i />
             <i />
-            <span>display — subhash.live</span>
+            <span>display · subhash.live</span>
           </div>
           <span className="eyebrow">
             <Image src={PHOTO} alt="Subhash Rana" width={38} height={38} priority />

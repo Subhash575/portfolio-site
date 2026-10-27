@@ -39,7 +39,7 @@ export default function ContactSection() {
     };
     setErrs(next);
     if (next.name || next.msg) return;
-    const href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`${re} — from ${name.trim()}`)}&body=${encodeURIComponent(`${msg.trim()}\n\n— ${name.trim()}`)}`;
+    const href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`${re} (from ${name.trim()})`)}&body=${encodeURIComponent(`${msg.trim()}\n\n${name.trim()}`)}`;
     track("send_letter", { reason: re });
     setSent(true);
     setTimeout(
@@ -142,7 +142,7 @@ export default function ContactSection() {
               {errs.msg}
             </p>
             <div className="ct-foot">
-              <span className="ct-sign">— sent from subhash.live</span>
+              <span className="ct-sign">sent from subhash.live</span>
               <button className="hirek" type="submit">
                 Send <span>↵</span>
               </button>

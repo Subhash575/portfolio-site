@@ -1,10 +1,10 @@
 // Side cards on the hero workbench. Every answer comes from the CV or public repos.
 
 export const roleFit = {
-  fs: { label: "Full-stack", level: 4, verdict: "Strong match", proof: "TaskFlow — React + Node + MongoDB, 308 tests.", skills: "React · Next.js · Node · PostgreSQL · MongoDB" },
+  fs: { label: "Full-stack", level: 4, verdict: "Strong match", proof: "TaskFlow: React, Node and MongoDB, 308 tests.", skills: "React · Next.js · Node · PostgreSQL · MongoDB" },
   fe: { label: "Frontend", level: 3, verdict: "Good match", proof: "Next.js + Tailwind UIs at Matchbest (EMS, Maverickservices).", skills: "React · Next.js · TypeScript · Tailwind" },
   be: { label: "Backend", level: 4, verdict: "Strong match", proof: "REST APIs with RBAC; Job Portal API time cut 25%.", skills: "Node · Express · PostgreSQL · Prisma · JWT" },
-  ai: { label: "AI / LLM", level: 3, verdict: "Good match", proof: "Pilot CLI — tool calling, approval prompt, evals 0.78 → 1.0.", skills: "AI SDK · Gemini · Zod · Evals" },
+  ai: { label: "AI / LLM", level: 3, verdict: "Good match", proof: "Pilot CLI: tool calling, approval prompt, evals 0.78 → 1.0.", skills: "AI SDK · Gemini · Zod · Evals" },
 } as const;
 
 export type Role = keyof typeof roleFit;

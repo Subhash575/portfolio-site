@@ -24,7 +24,7 @@ const cards: { g: Group; cls: string; title: string; text: string; icon: React.R
     g: "fs",
     cls: "c-pe",
     title: "Full-stack apps",
-    text: "Next.js, Node, PostgreSQL and MongoDB, with RBAC done right.",
+    text: "Next.js, Node, PostgreSQL and MongoDB, with RBAC on the APIs.",
     icon: (
       <>
         <rect x="4" y="4" width="7" height="7" rx="1.5" />
@@ -38,7 +38,7 @@ const cards: { g: Group; cls: string; title: string; text: string; icon: React.R
     g: "qa",
     cls: "c-wh",
     title: "Tested and secure",
-    text: "JWT in HTTP-only cookies, IDOR-safe auth and real test suites.",
+    text: "JWT in HTTP-only cookies, IDOR-safe auth and automated test suites.",
     icon: (
       <>
         <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" />
@@ -96,7 +96,7 @@ export default function AboutSection() {
                   Based in NCR, India. I build full-stack apps with Next.js and Node, and terminal AI agents that call tools, ask before
                   risky actions, and get tested with evals.
                 </p>
-                <span className="ab3-edu">B.Tech CSE · CGPA 7.75 · St. Andrews Institute · 2022–26</span>
+                <span className="ab3-edu">B.Tech CSE · CGPA 7.75 · St. Andrews Institute · 2022-26</span>
               </div>
             </div>
             <div className="ab3-stats">

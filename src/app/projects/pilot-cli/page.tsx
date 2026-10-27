@@ -110,7 +110,7 @@ export default function PilotCliCaseStudy() {
             <div className="cs-cube" aria-hidden="true">?</div>
             <div>
               <span className="label">the problem</span>
-              <h2>AI assistants feel like black boxes</h2>
+              <h2>Why I built it</h2>
               <p>
                 AI coding assistants feel like black boxes. I wanted to build one myself to understand
                 how an agent decides which tool to call, and to measure whether it calls the right one.
@@ -139,7 +139,7 @@ export default function PilotCliCaseStudy() {
           <i className="cs-node">03</i>
           <div className="cs-card">
             <span className="label">what I built</span>
-            <h2>One prompt, four stops, one scorer</h2>
+            <h2>How a prompt moves through Pilot</h2>
             <ol className="cs-pipe">
               {pipe.map((n) => (
                 <li key={n.label} className={n.hot ? "hot" : ""}>
@@ -175,7 +175,7 @@ export default function PilotCliCaseStudy() {
             </p>
             <EvalBench />
             <p>
-              Every run is traced in Laminar, so a regression shows up as a number, not a hunch.
+              Every run is traced in Laminar, so a regression shows up as a lower score.
             </p>
           </div>
         </Reveal>
@@ -198,7 +198,7 @@ export default function PilotCliCaseStudy() {
       </CaseFlow>
 
       <Reveal className="cs-end">
-        <p>Want to see how it works under the hood?</p>
+        <p>The full code is on GitHub.</p>
         <div className="cs-cta">
           <a href={REPO} target="_blank" rel="noreferrer" className="hirek">
             View the code <span>↗</span>
