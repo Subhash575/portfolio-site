@@ -674,10 +674,10 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:#fffdf9;b
 .cs-keys span{display:block;margin-top:10px;font-size:13px;font-weight:700}
 .cs-keys small{display:block;margin-top:2px;font-size:12px;opacity:.7}
 /* signal cable + stations */
-.cs-flow{--p:0px;position:relative;display:grid;grid-template-columns:1fr 96px 1fr;row-gap:34px;margin-top:64px}
-.cs-flow::before,.cs-flow::after{content:"";position:absolute;left:50%;top:0;width:6px;margin-left:-3px;border-radius:3px}
+.cs-flow{--p:0px;--s:23px;position:relative;display:grid;grid-template-columns:1fr 96px 1fr;row-gap:34px;margin-top:64px}
+.cs-flow::before,.cs-flow::after{content:"";position:absolute;left:50%;top:var(--s);width:6px;margin-left:-3px;border-radius:3px}
 .cs-flow::before{bottom:0;background:linear-gradient(90deg,#cfc4b1 0 2px,#e9e0d1 2px 4px,#cfc4b1 4px 6px)}
-.cs-flow::after{height:var(--p);background:repeating-linear-gradient(180deg,#ffd2b8 0 3px,transparent 3px 25px) center 0/2px 100% no-repeat,var(--or);box-shadow:0 0 0 4px rgba(255,107,26,.22);animation:cs-run 1.4s linear infinite}
+.cs-flow::after{height:max(0px,calc(var(--p) - var(--s)));background:repeating-linear-gradient(180deg,#ffd2b8 0 3px,transparent 3px 25px) center 0/2px 100% no-repeat,var(--or);box-shadow:0 0 0 4px rgba(255,107,26,.22);animation:cs-run 1.4s linear infinite}
 @keyframes cs-run{to{background-position:center 25px,0 0}}
 .cs-cap,.cs-tip{position:absolute;left:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fffdf9;border:2px solid var(--or);box-sizing:border-box;z-index:0;pointer-events:none}
 .cs-tip{top:var(--p);opacity:0;transition:opacity .2s}
@@ -772,6 +772,7 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:#fffdf9;b
   .cs-head h1{font-size:48px}
   .cs-keys{grid-template-columns:1fr;gap:16px}
   .cs-flow{grid-template-columns:44px 1fr;margin-top:48px}
+  .cs-flow{--s:17px}
   .cs-plug{left:22px}
   .cs-end{border-radius:26px;padding:34px 16px 48px}
   .cs-end p{font-size:22px}
