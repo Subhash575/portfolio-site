@@ -686,7 +686,7 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
 .cs-step.l .cs-card{grid-column:1;grid-row:1}
 .cs-step.r .cs-card{grid-column:3;grid-row:1}
 .cs-step.wide .cs-card{grid-column:1/-1;grid-row:2}
-.cs-step.l .cs-card::after,.cs-step.r .cs-card::after{content:"";position:absolute;top:21px;width:32px;height:5px;border-radius:3px;background:#cdbfa8;transition:background .3s}
+.cs-step.l .cs-card::after,.cs-step.r .cs-card::after{content:"";position:absolute;z-index:-1;top:21px;width:32px;height:5px;border-radius:3px;background:#cdbfa8;transition:background .3s}
 .cs-step.l .cs-card::after{right:-32px}
 .cs-step.r .cs-card::after{left:-32px}
 .cs-step:has(.cs-node.on) .cs-card::after{background:#ff6b1a}
