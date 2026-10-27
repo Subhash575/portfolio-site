@@ -36,7 +36,9 @@ function measure(main: HTMLElement): Layout | null {
   if (!hero || !first || !send || !letter) return null;
 
   const mobile = window.innerWidth <= 760;
-  const gx = mobile ? 14 : first.l - 36;
+  // Same breakpoint as the compact styles in workbench.css: below it the side margin is under ~60px.
+  const compact = window.innerWidth <= 1439;
+  const gx = compact ? 16 : first.l - 36;
   const sy = mobile ? hero.b + 10 : hero.b - 70;
   // Phone: leave from the keyboard's bottom-left corner so the cable never crosses the "press P E C" hint.
   const hx = hero.l + 10;
@@ -51,7 +53,7 @@ function measure(main: HTMLElement): Layout | null {
     d += ` L${gx} ${py}`;
     ports.push({ x: gx, y: py });
     tags.push({ x: gx, y: prevBottom + (h2.t - 30 - prevBottom) / 2 });
-    if (!mobile) {
+    if (!compact) {
       const bx = mat.l + 34, by = mat.t + 4;
       branches.push({ d: `M${gx} ${by - 30} C${gx + 40} ${by - 30} ${bx} ${by - 30} ${bx} ${by}`, x: bx, y: by, at: py });
     }
