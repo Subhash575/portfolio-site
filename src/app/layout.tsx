@@ -1,62 +1,46 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, Fira_Code } from "next/font/google";
+import { Plus_Jakarta_Sans, Caveat, Fira_Code } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import ThemeProvider from "@/components/ThemeProvider";
+import "./workbench.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import TrackClicks from "@/components/TrackClicks";
 import { PersonJsonLd } from "@/components/JsonLd";
+import { siteConfig } from "@/lib/data";
 
-const fontBody = Inter({
+const fontBody = Plus_Jakarta_Sans({
   variable: "--font-body",
   subsets: ["latin"],
 });
 
-const fontHeading = Outfit({
-  variable: "--font-heading",
+const fontHand = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: "600",
+});
+
+const fontCode = Fira_Code({
+  variable: "--font-code",
   subsets: ["latin"],
 });
 
-const fontMono = Fira_Code({
-  variable: "--font-mono",
-  subsets: ["latin"],
-});
+const title = `${siteConfig.name} | Full-stack engineer building AI agents`;
 
 export const metadata: Metadata = {
-  title: {
-    default: "Subhash Rana | Full Stack Developer",
-    template: "%s | Subhash Rana",
-  },
-  description:
-    "Full Stack Developer building scalable web apps. Open to new opportunities.",
-  metadataBase: new URL("https://subhashrana.dev"),
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
-      { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
-    ],
-    apple: "/apple-touch-icon.png",
-  },
+  title: { default: title, template: `%s | ${siteConfig.name}` },
+  description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
   openGraph: {
-    title: "Subhash Rana | Full Stack Developer",
-    description:
-      "Full Stack Developer portfolio — projects, experience, and contact.",
-    url: "https://subhashrana.dev",
-    siteName: "Subhash Rana",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     locale: "en_US",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Subhash Rana | Full Stack Developer",
-    description: "Full Stack Developer portfolio.",
-    images: ["/og-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  twitter: { card: "summary_large_image", title, description: siteConfig.description },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -67,16 +51,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fontBody.variable} ${fontHeading.variable} ${fontMono.variable} h-full antialiased`}
-      suppressHydrationWarning
+      className={`${fontBody.variable} ${fontHand.variable} ${fontCode.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-surface text-primary">
-        <ThemeProvider>
-          <Navbar />
-          <div className="grow">{children}</div>
-          <Footer />
-        </ThemeProvider>
+      <body className="flex min-h-full flex-col">
+        <Navbar />
+        <div className="grow">{children}</div>
+        <Footer />
         <PersonJsonLd />
+        <Analytics />
+        <TrackClicks />
       </body>
     </html>
   );

@@ -1,146 +1,148 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { siteConfig, stats } from "@/lib/data";
-import { skillGroups } from "@/data/skills";
-import SectionHeading from "@/components/SectionHeading";
-import StatCard from "@/components/StatCard";
-import { FaReact, FaNodeJs, FaGitAlt } from "react-icons/fa";
-import {
-  SiNextdotjs,
-  SiTypescript,
-  SiTailwindcss,
-  SiExpress,
-  SiMongodb,
-  SiPostgresql,
-  SiPrisma,
-  SiFramer,
-} from "react-icons/si";
-import { TbApi } from "react-icons/tb";
+import Image from "next/image";
+import { useState } from "react";
+import Reveal from "@/components/Reveal";
+import CountUp from "@/components/CountUp";
+import { proofStats, skills, type Group } from "@/data/skills";
+import { useMeasured } from "@/lib/wires";
 
-const categoryTitle: Record<string, string> = {
-  frontend: "Frontend",
-  backend: "Backend",
-  database: "Database",
-  tools: "Tools",
-};
-
-const categoryAccent: Record<string, string> = {
-  frontend:
-    "bg-violet-500/10 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400",
-  backend: "bg-sky-500/10 text-sky-600 dark:bg-sky-500/15 dark:text-sky-400",
-  database:
-    "bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400",
-  tools:
-    "bg-amber-500/10 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400",
-};
-
-const skillIcons: Record<string, React.ReactNode> = {
-  "React.js": <FaReact className="text-[#61DAFB]" />,
-  "Next.js": <SiNextdotjs className="text-primary" />,
-  TypeScript: <SiTypescript className="text-[#3178C6]" />,
-  "Tailwind CSS": <SiTailwindcss className="text-[#06B6D4]" />,
-  "Node.js": <FaNodeJs className="text-[#339933]" />,
-  "Express.js": <SiExpress className="text-primary" />,
-  "REST APIs": <TbApi className="text-muted" />,
-  MongoDB: <SiMongodb className="text-[#47A248]" />,
-  PostgreSQL: <SiPostgresql className="text-[#4169E1]" />,
-  "Prisma ORM": <SiPrisma className="text-[#2D3748]" />,
-  Git: <FaGitAlt className="text-[#F05032]" />,
-  "Framer Motion": <SiFramer className="text-primary" />,
-};
+const cards: { g: Group; cls: string; title: string; text: string; icon: React.ReactNode }[] = [
+  {
+    g: "ai",
+    cls: "c-or",
+    title: "AI agents",
+    text: "Tool calling, approval flows and evals that measure tool choice.",
+    icon: (
+      <>
+        <rect x="5" y="8" width="14" height="11" rx="3" />
+        <path d="M12 4v4M9 13h.01M15 13h.01M3 13v2M21 13v2" />
+      </>
+    ),
+  },
+  {
+    g: "fs",
+    cls: "c-pe",
+    title: "Full-stack apps",
+    text: "Next.js, Node, PostgreSQL and MongoDB, with RBAC on the APIs.",
+    icon: (
+      <>
+        <rect x="4" y="4" width="7" height="7" rx="1.5" />
+        <rect x="13" y="4" width="7" height="4" rx="1.5" />
+        <rect x="13" y="10" width="7" height="10" rx="1.5" />
+        <rect x="4" y="13" width="7" height="7" rx="1.5" />
+      </>
+    ),
+  },
+  {
+    g: "qa",
+    cls: "c-wh",
+    title: "Tested and secure",
+    text: "JWT in HTTP-only cookies, IDOR-safe auth and automated test suites.",
+    icon: (
+      <>
+        <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" />
+        <path d="M9 12l2 2 4-4" />
+      </>
+    ),
+  },
+];
 
 export default function AboutSection() {
+  const [g, setG] = useState<Group | null>(null);
+  const lit = (groups: Group[]) => (!g ? "" : groups.includes(g) ? "lit" : "dim");
+
+  // Cutting-mat ruler: a number every 120px (5 "cm").
+  const [ruler, setRuler] = useState<HTMLDivElement | null>(null);
+  const [marks] = useMeasured<number[]>(() => {
+    const w = ruler?.clientWidth ?? 0;
+    return Array.from({ length: Math.floor(w / 120) + 1 }, (_, i) => i * 120);
+  }, []);
+
   return (
-    <motion.section
-      id="about"
-      className="relative px-4 py-16 md:px-6 md:py-12"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      variants={{
-        hidden: { opacity: 0, y: 24 },
-        visible: { opacity: 1, y: 0 },
-      }}
-    >
-      {/* Subtle background accent */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-3xl"
-      >
-        <div className="absolute -top-24 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-accent/5 blur-3xl" />
-      </div>
+    <section className="ab" id="about">
+      <Reveal className="ab3-head">
+        <span className="label">01 · about</span>
+        <h2>
+          About <span>me</span>
+        </h2>
+        <p className="ab3-hint">Hover what I do to light up the tools and proof behind it.</p>
+      </Reveal>
+      <Reveal className="ab3-mat">
+        <div className="ab3-panel">
+          <i className="scr tl" />
+          <i className="scr tr" />
+          <i className="scr bl" />
+          <i className="scr br" />
+          <span className="ab3-port" aria-hidden="true" />
+          <span className="ab3-etch">about.module · rev 2026</span>
+          <div className="ab3-ruler" ref={setRuler} aria-hidden="true">
+            {marks.map((x, i) => (
+              <span key={x} style={{ left: x }}>
+                {i * 5}
+              </span>
+            ))}
+          </div>
 
-      <SectionHeading title="About Me" subtitle="A brief introduction" />
+          <div className="ab3-top">
+            <div className="ab3-me">
+              <span className="ab-ph">
+                <Image src="/images/Subhash_pic.png" alt="Subhash Rana" width={72} height={72} />
+              </span>
+              <div>
+                <b>Subhash Rana</b>
+                <small>Full-stack engineer · AI agents</small>
+                <p>
+                  Based in NCR, India. I build full-stack apps with Next.js and Node, and terminal AI agents that call tools, ask before
+                  risky actions, and get tested with evals.
+                </p>
+                <span className="ab3-edu">B.Tech CSE · CGPA 7.75 · St. Andrews Institute · 2022-26</span>
+              </div>
+            </div>
+            <div className="ab3-stats">
+              {proofStats.map((s) => (
+                <div key={s.label} className={lit([s.group])}>
+                  <b>
+                    {s.display ?? <CountUp value={s.value} />}
+                    {s.suffix && <i>{s.suffix}</i>}
+                  </b>
+                  <small>{s.label}</small>
+                  <em>{s.source}</em>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      <div className="mt-1.5 flex flex-col items-stretch gap-12 lg:flex-row lg:items-stretch lg:gap-16">
-        {/* ── Left column: Bio + Stats ── */}
-        <div className="flex flex-1 flex-col gap-8">
-          <p className="text-[1.05rem] leading-[1.85] tracking-[-0.01em] text-secondary">
-            {siteConfig.bio}
-          </p>
+          <p className="ab3-sub">What I do</p>
+          <div className="ab3-cards" onMouseLeave={() => setG(null)}>
+            {cards.map((c) => (
+              <button
+                key={c.g}
+                className={`${c.cls}${g === c.g ? " on" : g ? " dim" : ""}`}
+                onMouseEnter={() => setG(c.g)}
+                onFocus={() => setG(c.g)}
+                onClick={() => setG(g === c.g ? null : c.g)}
+                aria-pressed={g === c.g}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  {c.icon}
+                </svg>
+                <b>{c.title}</b>
+                <small>{c.text}</small>
+              </button>
+            ))}
+          </div>
 
-          <div className="flex-1 grid grid-cols-2 grid-rows-2 content-stretch gap-3 sm:gap-4">
-            {stats.map((stat, i) => (
-              <StatCard key={i} stat={stat} />
+          <div className="ab3-keys" aria-label="Skills">
+            {skills.map((s) => (
+              <span key={s.name} className={lit(s.groups)}>
+                {s.name}
+              </span>
             ))}
           </div>
         </div>
-
-        {/* ── Right column: Skills card ── */}
-        <div className="h-full flex-1 rounded-xl border border-subtle bg-surface-elevated/70 p-6 backdrop-blur-sm md:p-8">
-          {/* Card header */}
-          <div className="mb-7 flex items-center gap-3">
-            <div className="h-8 w-1 rounded-full bg-accent" />
-            <h3 className="text-[1.05rem] font-semibold tracking-tight text-primary">
-              Technical Skills
-            </h3>
-          </div>
-
-          <div className="space-y-7">
-            {skillGroups.map(
-              ({ category, skills: list }) =>
-                list.length > 0 && (
-                  <div key={category}>
-                    {/* Category label */}
-                    <div className="mb-3 flex items-center gap-2">
-                      <span
-                        className={`rounded-md px-2 py-0.5 text-[11px] font-semibold uppercase tracking-widest ${categoryAccent[category]}`}
-                      >
-                        {categoryTitle[category]}
-                      </span>
-                      <div className="h-px flex-1 bg-surface-elevated dark:bg-surface-elevated/6" />
-                    </div>
-
-                    {/* Skill grid */}
-                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-                      {list.map((skill) => {
-                        return (
-                          <div
-                            key={skill.name}
-                            title={skill.name}
-                            className="group flex flex-col items-center justify-center gap-2 rounded-xl border border-subtle bg-surface p-4 text-center transition-all duration-150 hover:-translate-y-1 hover:border-accent hover:shadow-sm dark:bg-surface-elevated/4 dark:hover:border-accent"
-                          >
-                            <span
-                              className="text-2xl flex items-center leading-none"
-                              aria-hidden="true"
-                            >
-                              {skillIcons[skill.name] || skill.icon}
-                            </span>
-                            <span className="text-xs font-medium text-secondary group-hover:text-primary leading-tight">
-                              {skill.name}
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ),
-            )}
-          </div>
-        </div>
-      </div>
-    </motion.section>
+        <span className="matlbl">about · cutting mat</span>
+      </Reveal>
+    </section>
   );
 }

@@ -1,15 +1,15 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://subhashrana.dev";
   const lastModified = new Date();
-
-  const sections = ["", "#about", "#projects", "#experience", "#contact"];
-
-  return sections.map((route) => ({
-    url: `${baseUrl}/${route}`,
-    lastModified,
-    changeFrequency: route === "" ? "monthly" : "yearly",
-    priority: route === "" ? 1 : 0.8,
-  }));
+  return [
+    { url: siteConfig.url, lastModified, changeFrequency: "monthly", priority: 1 },
+    {
+      url: `${siteConfig.url}/projects/pilot-cli`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+  ];
 }

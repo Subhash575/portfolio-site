@@ -1,136 +1,320 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { siteConfig } from "@/lib/data";
-import { fadeIn, floatAnimationSlow, staggerContainer } from "@/lib/animations";
 import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { siteConfig } from "@/lib/data";
+import { trackLink } from "@/lib/track";
+import { curve, rectIn, reducedMotion, useMeasured } from "@/lib/wires";
+import { AskPilot, Commits, QuickActions, RoleCard } from "./hero/SideCards";
+
+const PHOTO = "/images/Subhash_pic.png";
+const HEADLINE = [
+  { t: "I build ", em: false },
+  { t: "AI agents", em: true },
+  { t: "\n", em: false },
+  { t: "that actually ship.", em: false },
+];
+const HEAD_LEN = HEADLINE.reduce((n, s) => n + s.t.length, 0);
+
+type KeyDef = { k: string; href: string; label: string; cap?: string; led?: string; cls?: string };
+const KEYS: KeyDef[] = [
+  { k: "v", href: siteConfig.resume, label: "Download CV (V)", cap: "V" },
+  { k: "a", href: "#about", label: "About me (A)", cls: "photo" },
+  { k: "p", href: "#work", label: "Projects (P)", cap: "P", led: "var(--or)" },
+  { k: "e", href: "#exp", label: "Experience (E)", cap: "E", led: "#7c5cff" },
+  { k: "c", href: "#contact", label: "Contact (C)", cap: "C", led: "#16a34a" },
+  { k: "enter", href: "#contact", label: "Hire me (Enter)", cap: "↵", cls: "enter" },
+  { k: " ", href: "#contact", label: "Open to SDE-1 roles (Space)", cls: "space" },
+];
+const KEY_TEXT: Record<string, string> = { v: "cv ⤓", p: "projects", e: "experience", c: "contact" };
+
+function go(href: string) {
+  if (href.startsWith("#")) document.querySelector(href)?.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth" });
+  else window.open(href, "_blank");
+}
+
+type Wire = { d: string; plug: { x: number; y: number; w: number; h: number }; port: { x: number; y: number; w: number; h: number } };
 
 export default function HeroSection() {
+  const mat = useRef<HTMLDivElement>(null);
+  const screen = useRef<HTMLDivElement>(null);
+  const kb = useRef<HTMLDivElement>(null);
+  const kbWrap = useRef<HTMLDivElement>(null);
+  const hero = useRef<HTMLElement>(null);
+  const you = useRef<HTMLDivElement>(null);
+  const cards = useRef<(HTMLDivElement | null)[]>([]);
+  const keyEls = useRef<Record<string, HTMLAnchorElement | null>>({});
+
+  const [down, setDown] = useState<string | null>(null);
+  const [typed, setTyped] = useState(HEAD_LEN);
+  const [me, setMe] = useState({ x: -60, y: -40 });
+  const [bursts, setBursts] = useState<{ id: number; d: string }[]>([]);
+
+  const press = useCallback((k: string) => {
+    setDown(k);
+    setTimeout(() => setDown((cur) => (cur === k ? null : cur)), 180);
+  }, []);
+
+  // Cables: four side cards into the keyboard edges, keyboard up into the display.
+  const [wires] = useMeasured<Wire[]>(() => {
+    if (!mat.current || !kb.current || !screen.current) return [];
+    const box = mat.current.getBoundingClientRect();
+    const k = rectIn(kb.current, box);
+    const out: Wire[] = [];
+    cards.current.forEach((c, i) => {
+      if (!c || c.offsetParent === null) return;
+      const r = rectIn(c, box);
+      const left = i < 2;
+      const a = { x: left ? r.right : r.left, y: r.top + r.height / 2 };
+      const b = { x: left ? k.left : k.right, y: k.top + k.height * (i % 2 ? 0.72 : 0.3) };
+      out.push({
+        d: curve(a, b),
+        plug: { x: left ? a.x - 2 : a.x - 8, y: a.y - 5, w: 10, h: 10 },
+        port: { x: left ? b.x - 7 : b.x - 1, y: b.y - 6, w: 8, h: 12 },
+      });
+    });
+    const s = rectIn(screen.current, box);
+    const cx = k.left + k.width / 2;
+    if (out.length && k.top - s.bottom > 6) {
+      out.push({ d: `M${cx} ${k.top} L${cx} ${s.bottom}`, plug: { x: cx - 6, y: s.bottom - 3, w: 12, h: 6 }, port: { x: cx - 6, y: k.top - 3, w: 12, h: 6 } });
+    }
+    return out;
+  }, []);
+
+  // A side card was used: flash its cable, then press the matching key.
+  const signal = useCallback(
+    (card: number, key: string) => {
+      const w = wires[card];
+      if (w && !reducedMotion()) {
+        const id = Date.now() + card;
+        setBursts((b) => [...b, { id, d: w.d }]);
+        setTimeout(() => setBursts((b) => b.filter((x) => x.id !== id)), 700);
+      }
+      if (key) setTimeout(() => press(key), 560);
+    },
+    [wires, press],
+  );
+
+  // The keyboard types the headline on load, pressing keys as it goes.
+  useEffect(() => {
+    if (reducedMotion()) return;
+    let i = 0;
+    let t: ReturnType<typeof setTimeout>;
+    const step = () => {
+      i += 1;
+      setTyped(i);
+      if (i % 2 === 0) press(["p", "e", "c", "v", "enter", " "][(i * 7) % 6]);
+      if (i < HEAD_LEN) t = setTimeout(step, 55);
+    };
+    t = setTimeout(() => {
+      setTyped(0);
+      t = setTimeout(step, 120);
+    }, 350);
+    return () => clearTimeout(t);
+  }, [press]);
+
+  // Real keyboard: P / E / C / V / Enter press the keycap and jump there.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.target instanceof Element && e.target.closest("input, textarea, select, button, [contenteditable]")) return;
+      const key = KEYS.find((x) => x.k === e.key.toLowerCase() && x.k !== " ");
+      if (!key) return;
+      press(key.k);
+      trackLink(key.href, key.label, "hero-keyboard");
+      setTimeout(() => go(key.href), 160);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [press]);
+
+  // "Subhash" cursor walks the keys; "you" cursor follows the visitor.
+  useEffect(() => {
+    if (reducedMotion()) return;
+    const tour = ["p", "e", "c", "enter", "a"];
+    let n = 0;
+    const id = setInterval(() => {
+      const k = keyEls.current[tour[n++ % tour.length]];
+      const w = kbWrap.current;
+      if (!k || !w) return;
+      const r = k.getBoundingClientRect();
+      const b = w.getBoundingClientRect();
+      setMe({ x: r.left - b.left + r.width * 0.55, y: r.top - b.top + r.height * 0.45 });
+      setTimeout(() => press(k.dataset.k!), 950);
+    }, 2600);
+    const h = hero.current;
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    const move = (e: PointerEvent) => {
+      const el = you.current;
+      if (!el || !h) return;
+      const b = h.getBoundingClientRect();
+      el.style.opacity = "1";
+      el.style.transform = `translate(${e.clientX - b.left + 14}px, ${e.clientY - b.top + 12}px)`;
+    };
+    const leave = () => you.current && (you.current.style.opacity = "0");
+    if (fine && h) {
+      h.addEventListener("pointermove", move);
+      h.addEventListener("pointerleave", leave);
+    }
+    return () => {
+      clearInterval(id);
+      h?.removeEventListener("pointermove", move);
+      h?.removeEventListener("pointerleave", leave);
+    };
+  }, [press]);
+
+  // Render the headline up to `typed` characters.
+  let left = typed;
+  const head = HEADLINE.map((s, i) => {
+    const part = s.t.slice(0, Math.max(0, left));
+    left -= s.t.length;
+    if (s.t === "\n") return part ? <br key={i} /> : null;
+    return s.em ? <em key={i}>{part}</em> : <span key={i}>{part}</span>;
+  });
+
   return (
-    <section
-      id="hero"
-      className="relative flex items-start justify-between px-6 md:px-20 pt-25 md:pt-30 pb-15 overflow-hidden"
-    >
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="visible"
-        className="z-10 flex w-full flex-col md:flex-row items-center justify-between gap-10"
-      >
-        <div className="flex flex-col gap-4 min-w-0 md:w-1/2">
-          <motion.div variants={fadeIn}>
-            <div className="relative h-22 w-22 overflow-hidden rounded-full ring-2 ring-accent">
-              <Image
-                src="/images/Subhash_pic.png"
-                alt="Subhash Rana"
-                fill
-                sizes="88px"
-                className="object-cover"
-                priority
-              />
-            </div>
-          </motion.div>
+    <header className="khero" id="top" ref={hero}>
+      <div className="kmat" ref={mat}>
+        <svg className="cables" aria-hidden="true">
+          {wires.map((w, i) => (
+            <g key={i}>
+              <path d={w.d} className="wire" />
+              <path d={w.d} className="sig" style={{ animationDelay: `${-i * 0.8}s` }} />
+              <rect x={w.plug.x} y={w.plug.y} width={w.plug.w} height={w.plug.h} rx={3} className="plug" />
+              <rect x={w.port.x} y={w.port.y} width={w.port.w} height={w.port.h} rx={2} className="port" />
+            </g>
+          ))}
+          {bursts.map((b) => (
+            <path key={b.id} d={b.d} pathLength={100} className="burst" />
+          ))}
+        </svg>
 
-          <motion.div variants={fadeIn} className="flex items-center gap-3">
-            <span className="inline-block w-fit rounded-full bg-surface-elevated px-3 py-1 text-small font-medium text-primary">
-              Hi, my name is
-            </span>
-            <div className="flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-              </span>
-              Open to work
-            </div>
-          </motion.div>
-
-          <div className="flex flex-col gap-2 min-w-0">
-            <h1 className="relative z-10 text-h1 font-heading font-extrabold text-on-surface opacity-100 wrap-break-word md:text-[clamp(2.5rem,5vw,4rem)] md:leading-tight">
-              {siteConfig.name}
-            </h1>
-
-            <motion.h2
-              variants={fadeIn}
-              className="text-h3 font-heading font-bold text-gray-400 wrap-break-word"
-            >
-              {siteConfig.title}
-              <span className="animate-pulse text-accent">|</span>
-            </motion.h2>
+        <div className="dsp" ref={screen}>
+          <div className="sbar">
+            <i />
+            <i />
+            <i />
+            <span>display · subhash.live</span>
           </div>
-
-          <motion.p
-            variants={fadeIn}
-            className="max-w-2xl text-body text-secondary"
-          >
-            {siteConfig.tagline}
-          </motion.p>
-
-          <motion.div
-            variants={fadeIn}
-            className="mt-4 flex flex-col sm:flex-row flex-wrap gap-4"
-          >
-            <a
-              href="#projects"
-              className="flex w-full sm:w-auto items-center justify-center h-12 px-6 rounded-lg text-base font-medium bg-indigo-500 text-white transition-colors hover:bg-indigo-600"
-            >
-              View Projects
-            </a>
-            <a
-              href="cv/subhash_resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex w-full sm:w-auto items-center justify-center gap-2 h-12 px-6 rounded-lg text-base font-medium border-2 border-indigo-500 text-indigo-500 transition-colors hover:bg-indigo-50 dark:border-[rgba(255,255,255,0.65)] dark:text-white dark:hover:bg-white/10"
-              download
-            >
-              Download CV
-            </a>
-          </motion.div>
+          <span className="eyebrow">
+            <Image src={PHOTO} alt="Subhash Rana" width={38} height={38} priority />
+            <span>
+              Hi, I&apos;m <b>Subhash Rana</b> · SDE intern @ Matchbest
+            </span>
+            <span className="kdot" title="Open to work" />
+          </span>
+          <h1 aria-label="I build AI agents that actually ship.">
+            <span aria-hidden="true">
+              {head}
+              {typed < HEAD_LEN && <span className="tcaret" />}
+            </span>
+          </h1>
+          <p className="lead">Full-stack engineer, B.Tech CSE &apos;26. Next.js, Node and terminal agents with evals that prove they work.</p>
         </div>
 
-        <motion.div
-          variants={fadeIn}
-          animate={floatAnimationSlow}
-          className="relative mx-auto w-full md:mx-0 md:w-1/2 opacity-65 min-w-0 md:self-center"
-        >
-          <div className="overflow-hidden rounded-xl border border-subtle/80 bg-surface-elevated shadow-none max-w-125 w-full ml-auto">
-            <div className="flex items-center gap-2 border-b border-subtle/80 px-5 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-              <p className="ml-3 text-caption font-medium uppercase tracking-wider text-muted">
-                live-snippet.ts
-              </p>
-            </div>
+        <aside className="rail l" aria-label="Role fit and quick actions">
+          <RoleCard ref={(el) => void (cards.current[0] = el)} onSignal={(k) => signal(0, k)} />
+          <QuickActions ref={(el) => void (cards.current[1] = el)} onSignal={(k) => signal(1, k)} />
+        </aside>
 
-            <div className="space-y-2 bg-surface/10 px-5 py-6 font-mono text-small text-zinc-200">
-              <p>
-                <span className="text-indigo-300">const</span>{" "}
-                <span className="text-emerald-300">stack</span>{" "}
-                <span className="text-muted">=</span>{" "}
-                <span className="text-amber-300">[</span>
-                <span className="text-sky-300">&quot;MERN&quot;</span>
-                <span className="text-muted">,</span>{" "}
-                <span className="text-sky-300">&quot;Next.js&quot;</span>
-                <span className="text-amber-300">]</span>
-              </p>
-              <p>
-                <span className="text-indigo-300">export const</span>{" "}
-                <span className="text-emerald-300">build</span>{" "}
-                <span className="text-muted">=</span>{" "}
-                <span className="text-amber-300">()</span>{" "}
-                <span className="text-muted">=&gt;</span>{" "}
-                <span className="text-amber-300">{"{"}</span>
-              </p>
-              <p className="pl-5 text-zinc-300">performance: high,</p>
-              <p className="pl-5 text-zinc-300">ui: intentional,</p>
-              <p className="pl-5 text-zinc-300">impact: measurable</p>
-              <p>
-                <span className="text-amber-300">{"}"}</span>
-              </p>
-            </div>
+        <div className="kbwrap" ref={kbWrap}>
+          <div className="kb" ref={kb}>
+            {KEYS.map((key) => (
+              <a
+                key={key.k}
+                ref={(el) => void (keyEls.current[key.k] = el)}
+                data-k={key.k}
+                className={`key${key.cls ? " " + key.cls : ""}${down === key.k ? " down" : ""}`}
+                href={key.href}
+                aria-label={key.label}
+                {...(key.k === "v" ? { target: "_blank", rel: "noreferrer" } : {})}
+              >
+                {key.cls === "photo" ? (
+                  <>
+                    <Image src={PHOTO} alt="" width={86} height={86} />
+                    <span className="lbl"><span className="dx">A · </span>about<span className="dx"> me</span></span>
+                  </>
+                ) : key.cls === "space" ? (
+                  <>
+                    <span className="kdot" />
+                    <span className="lbl">open to SDE-1 roles · 2026</span>
+                  </>
+                ) : key.cls === "enter" ? (
+                  <>
+                    <span className="cap">↵</span>
+                    <span className="lbl">
+                      hire
+                      <br />
+                      me
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    {key.led && <span className="led" style={{ background: key.led }} />}
+                    <span className="cap">{key.cap}</span>
+                    <span className="lbl">
+                      {key.k === "e" ? (
+                        <>
+                          exp<span className="dx">erience</span>
+                          <span className="sx">.</span>
+                        </>
+                      ) : (
+                        KEY_TEXT[key.k]
+                      )}
+                    </span>
+                  </>
+                )}
+              </a>
+            ))}
           </div>
-        </motion.div>
-      </motion.div>
-    </section>
+          <div className="cur me" aria-hidden="true" style={{ transform: `translate(${me.x}px, ${me.y}px)` }}>
+            <svg viewBox="0 0 20 20">
+              <path d="M2 2 L18 9 L10 11 L7 18 Z" fill="#ff6b1a" stroke="#fff" strokeWidth="1.5" />
+            </svg>
+            <span>Subhash</span>
+          </div>
+        </div>
+
+        <aside className="rail r" aria-label="Ask Pilot and recent commits">
+          <AskPilot ref={(el) => void (cards.current[2] = el)} onSignal={(k) => signal(2, k)} />
+          <Commits ref={(el) => void (cards.current[3] = el)} onSignal={(k) => signal(3, k)} />
+        </aside>
+        <span className="matlbl">subhash&apos;s workbench · v2026</span>
+      </div>
+
+      <div className="kfoot">
+        <span className="hint">
+          press <kbd>P</kbd> <kbd>E</kbd> <kbd>C</kbd>{" "}
+          <span className="kdesk">
+            or <kbd>↵</kbd> on your keyboard,
+          </span>{" "}
+          or tap a key
+        </span>
+        <div className="ksections">
+          <a href="#work">
+            <i style={{ background: "var(--or)" }} />
+            Projects
+          </a>
+          <a href="#exp">
+            <i style={{ background: "#7c5cff" }} />
+            Experience
+          </a>
+          <a href="#contact">
+            <i style={{ background: "#16a34a" }} />
+            Contact
+          </a>
+          <a href={siteConfig.resume} download>
+            <i style={{ background: "var(--ink)" }} />
+            Download CV
+          </a>
+        </div>
+      </div>
+      <div className="cur you" ref={you} aria-hidden="true">
+        <svg viewBox="0 0 20 20">
+          <path d="M2 2 L18 9 L10 11 L7 18 Z" fill="#7c5cff" stroke="#fff" strokeWidth="1.5" />
+        </svg>
+        <span>you (recruiter?)</span>
+      </div>
+    </header>
   );
 }
