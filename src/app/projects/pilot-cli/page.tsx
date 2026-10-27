@@ -43,11 +43,10 @@ const nodes = [
 ];
 
 export default function PilotCliCaseStudy() {
-  const card = (s: (typeof sections)[number], i: number, hot = false) => (
-    <Reveal key={s.title} className={`cs-card${hot ? " hot" : ""}`}>
+  const card = (s: (typeof sections)[number], i: number) => (
+    <Reveal key={s.title} className="cs-card">
       <span className="label">{String(i).padStart(2, "0")}</span>
       <h2>{s.title}</h2>
-      {hot && <b className="cs-stat">0.778 → 1.0</b>}
       <p>{s.body}</p>
     </Reveal>
   );
@@ -117,7 +116,36 @@ export default function PilotCliCaseStudy() {
           </figure>
         </Reveal>
         {card(sections[2], 4)}
-        {card(sections[3], 5, true)}
+        <Reveal className="cs-card cs-res">
+          <span className="label">05</span>
+          <h2>{sections[3].title}</h2>
+          <div className="cs-lcd" role="img" aria-label="Tool-selection score rose from 0.778 to 1.0">
+            <i className="cs-led" />
+            <div className="cs-lcd-row">
+              <div>
+                <small>before</small>
+                <b className="was">0.778</b>
+              </div>
+              <span className="arr">→</span>
+              <div>
+                <small>after</small>
+                <b className="now">1.0</b>
+              </div>
+              <em className="cs-gain">+28%</em>
+            </div>
+            <div className="cs-gauge" aria-hidden="true">
+              <i className="was" />
+              <i className="now" />
+              <u />
+            </div>
+            <div className="cs-scale" aria-hidden="true">
+              <span>0</span>
+              <span>0.5</span>
+              <span>1.0</span>
+            </div>
+          </div>
+          <p>{sections[3].body}</p>
+        </Reveal>
         <Reveal className="cs-card wide">
           <span className="label">06</span>
           <h2>{sections[4].title}</h2>

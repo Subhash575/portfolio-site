@@ -649,9 +649,22 @@ nav#nav.scrolled .navbar{padding-top:5px;padding-bottom:5px;background:rgba(255,
 .cs-card.wide{grid-column:1/-1}
 .cs-card h2{margin:6px 0 0;font-size:22px;letter-spacing:-.02em;color:var(--ink)}
 .cs-card p{margin:10px 0 0;font-size:15px;line-height:1.65;color:#4a4238}
-.cs-card.hot{background:var(--g-or);color:#1a0800}
-.cs-card.hot .label,.cs-card.hot h2,.cs-card.hot p{color:#1a0800}
-.cs-stat{display:block;margin-top:8px;font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.cs-lcd{position:relative;margin-top:14px;padding:18px 20px 14px;border-radius:16px;color:#fff;background:linear-gradient(160deg,#241f19,#17140f);box-shadow:inset 0 2px 8px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06),0 1px 0 #fff}
+.cs-led{position:absolute;top:12px;right:14px;width:7px;height:7px;border-radius:50%;background:#4fc79a;box-shadow:0 0 8px #4fc79a}
+.cs-lcd-row{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.cs-lcd small{display:block;font-family:var(--font-code),monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a69d8f}
+.cs-lcd b{display:block;margin-top:4px;font-family:var(--font-code),monospace;font-size:40px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.cs-lcd .was{color:#8a8175;text-decoration:line-through;text-decoration-thickness:2px}
+.cs-lcd .now{color:#ff8a4c;text-shadow:0 0 18px rgba(255,107,26,.65)}
+.cs-lcd .arr{font-size:26px;color:#a69d8f;padding-bottom:6px}
+.cs-gain{margin-left:auto;align-self:center;padding:5px 10px;border-radius:9px;font-style:normal;font-size:13px;font-weight:700;color:#fff;background:linear-gradient(180deg,#ff8740,#ff6b1a);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 3px 0 #c2410c}
+.cs-gauge{position:relative;height:14px;margin-top:18px;border-radius:7px;background:rgba(255,255,255,.08);overflow:hidden}
+.cs-gauge i{position:absolute;top:0;bottom:0;left:0;border-radius:7px}
+.cs-gauge .now{width:100%;background:linear-gradient(90deg,#ff8a4c,#ff6b1a);box-shadow:0 0 14px rgba(255,107,26,.7)}
+.cs-gauge .was{width:77.8%;z-index:1;background:#6b6257;border-right:2px solid #17140f}
+.cs-gauge u{position:absolute;inset:0;z-index:2;background:repeating-linear-gradient(90deg,rgba(23,20,15,.55) 0 1px,transparent 1px 10%)}
+.cs-scale{display:flex;justify-content:space-between;margin-top:6px;font-family:var(--font-code),monospace;font-size:10px;color:#a69d8f}
+@media (max-width:760px){.cs-lcd b{font-size:32px}}
 .cs-fig svg{width:100%;height:auto;display:block;margin-top:14px}
 .cs-fig figcaption{margin-top:12px;font-size:14px;line-height:1.6;color:#4a4238}
 @media (max-width:760px){
