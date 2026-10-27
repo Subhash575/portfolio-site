@@ -67,7 +67,9 @@ kbd{font-family:var(--font-code),monospace;background:#fff;border-radius:5px;pad
   .key .cap{font-size:15px}
   .key .lbl{font-size:9px}
   .key .led{display:none}
-  .key.photo .lbl{display:none} /* the photo is the About key; the label only covered the face */
+  /* phone: a one-word strip along the bottom edge, below the face */
+  .key.photo .lbl{left:0;right:0;bottom:0;padding:8px 0 3px;text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.6))}
+  .key.photo .dx{display:none}
   .key.space .lbl{font-size:10px}
   .cur{display:none}
   .hint .kdesk{display:none}

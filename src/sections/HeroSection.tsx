@@ -232,7 +232,7 @@ export default function HeroSection() {
                 {key.cls === "photo" ? (
                   <>
                     <Image src={PHOTO} alt="" width={86} height={86} />
-                    <span className="lbl">A · about me</span>
+                    <span className="lbl"><span className="dx">A · </span>about<span className="dx"> me</span></span>
                   </>
                 ) : key.cls === "space" ? (
                   <>
