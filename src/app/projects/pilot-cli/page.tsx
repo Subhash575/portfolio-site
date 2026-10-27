@@ -45,7 +45,7 @@ const nodes = [
 export default function PilotCliCaseStudy() {
   return (
     <main className="mx-auto max-w-3xl px-6 pt-28 pb-20">
-      <Link href="/#projects" className="inline-flex items-center gap-1 text-sm font-bold text-orange-text">
+      <Link href="/#work" className="inline-flex items-center gap-1 text-sm font-bold text-orange-text">
         <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to projects
       </Link>
 
